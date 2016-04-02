@@ -1,28 +1,8 @@
-package student_player;
+//Yantzi
+//My current studentPlayer chooseMove method. 
 
-import hus.HusBoardState;
-import hus.HusPlayer;
-import hus.HusMove;
 
-import java.util.ArrayList;
-
-import student_player.mytools.MyTools;
-import student_player.mytree.Node;
-
-/** A Hus player submitted by a student. */
-public class StudentPlayer extends HusPlayer {
-
-    /** You must modify this constructor to return your student number.
-     * This is important, because this is what the code that runs the
-     * competition uses to associate you with your agent.
-     * The constructor should do nothing else. */
-    public StudentPlayer() { super("260467234"); }
-
-    /** This is the primary method that you need to implement.
-     * The ``board_state`` object contains the current state of the game,
-     * which your agent can use to make decisions. See the class hus.RandomHusPlayer
-     * for another example agent. */
-    public HusMove chooseMove(HusBoardState board_state)
+public HusMove chooseMove(HusBoardState board_state)
     {
         // Get the contents of the pits so we can use it to make decisions.
         int[][] pits = board_state.getPits();
@@ -51,22 +31,18 @@ public class StudentPlayer extends HusPlayer {
         //move = MinimaxDecision(moves, board_state);
         
         /////////////////////////////////////////////
-        //V2 - Minimax n levels deep
+        //V2
         
-//        Node bestNode = Minimax(6, 0, board_state);
-//        
-//        HusMove bestMove = bestNode.getMove();
+        Node bestNode = Minimax(6, 0, board_state);
+        
+        HusMove bestMove = bestNode.getMove();
+        
+        //System.out.println("Move Chosen = " +bestMove.getPit());
         
         
-        /////////////////////////////////////////////
-        //V3 Minimax with Alpha Beta Pruning
+        //will return bestMove. 
+       
         
-        int alpha = -10000;
-        int beta = 10000;
-        
-        HusMove bestMoveAB = MinimaxAB(board_state, 3, alpha, beta);
-        
-
         ////////////////////////////////////////////
         //Code Given
 
@@ -76,17 +52,14 @@ public class StudentPlayer extends HusPlayer {
 
         // But since this is a placeholder algorithm, we won't act on that information.
        
-        //V1
+        
         //return move;
         
-        //V2
-        //return bestMove;
-        
-        //V3
-        return bestMoveAB;
-        
+        return bestMove;
     }
-   
+    
+    
+       
     //VERSION 2.0 
     //minimax method that finds the best move to make based on a evaluation function that looks 
     //x levels deep, where x is a parameter (depth) passed in. 
@@ -208,79 +181,7 @@ public class StudentPlayer extends HusPlayer {
         	return currentNode;
         }       	
     }
-         
-    //VERSION3.0 - Alpha-Beta Pruning Version
     
-    public HusMove MinimaxAB(HusBoardState board_state, int depth, double alpha, double beta){
-    	
-    	ArrayList<HusMove> moves = board_state.getLegalMoves();
-    	double maxScore = 0;
-    	HusMove maxMove = moves.get(0);
-    	
-    	for(int i = 0; i< moves.size(); i++){
-    		
-    		HusBoardState cloned_board_state = (HusBoardState) board_state.clone();
-    		cloned_board_state.move(moves.get(i));
-    		
-    		double score = MinValue(cloned_board_state, depth-1, alpha, beta);
-    		
-    		if (score > maxScore){
-    			maxScore = score;
-    			maxMove = moves.get(i);
-    		}
-    	}
-    	
-    	return maxMove;
-    }
-
-    public double MaxValue(HusBoardState board_state, int depth, double alpha, double beta){
-
-    	if(depth ==0 || board_state.getLegalMoves() == null){
-    		double score = MyTools.EvaluationFunction(board_state, player_id, opponent_id);	
-    		return score;
-    		
-    	} else {
-    		
-    		ArrayList<HusMove> moves = board_state.getLegalMoves();
-    		
-    		for(int i=0; i< moves.size(); i++){
-    	
-    			HusBoardState cloned_board_state = (HusBoardState) board_state.clone();
-    			cloned_board_state.move(moves.get(i));
-    			
-    			alpha = Math.max(alpha, MinValue(cloned_board_state, depth-1, alpha, beta));
-    			if (alpha >= beta) return beta;
-    			
-    		}
-    		return alpha;	
-    	}	
-    }
-    
-    public double MinValue(HusBoardState board_state, int depth, double alpha, double beta){
-    
-    	if (depth == 0){
-    		double score = MyTools.EvaluationFunction(board_state, player_id, opponent_id);			
-    		return score;
-    		
-    	} else {
-    		
-    		ArrayList<HusMove> moves = board_state.getLegalMoves();
-    		
-    		for(int i=0; i < moves.size(); i++){
-    			
-    			HusBoardState cloned_board_state = (HusBoardState) board_state.clone();
-    			cloned_board_state.move(moves.get(i));
-    			beta = Math.min(beta, MaxValue(cloned_board_state, depth-1, alpha, beta));
-    			
-    			if (alpha >= beta) return alpha;
-    		}
-    		
-    		return beta;
-    	}
-    }
-    
-
     
     //end of StudentPlayer
-    
 }

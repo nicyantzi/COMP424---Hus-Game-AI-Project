@@ -1,0 +1,12 @@
+# Server version 0.08 running on web110073.wireless.mcgill.ca:8123
+# Game ID: 214
+# Board class: hus.HusBoard
+# Timeout: 300000
+# First Move Timeout: 30000
+# Date: Fri Apr 01 15:12:25 EDT 2016
+# Player 1: Player-0, '260467234', running on web110073.wireless.mcgill.ca
+# Player 2: Player-1, 'RandomHusPlayer', running on web110073.wireless.mcgill.ca
+START Player-0 260467234
+START Player-1 RandomHusPlayer
+GAMEOVER TIMEOUT WINNER 1
+# Game ended: Fri Apr 01 15:12:59 EDT 2016

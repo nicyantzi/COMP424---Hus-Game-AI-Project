@@ -32,6 +32,7 @@ public class StudentPlayer extends HusPlayer {
         int[] op_pits = pits[opponent_id];
         
         System.out.println("Player_Id = "+player_id);
+        System.out.println("Opponent_Id = "+opponent_id);
 
         // Use code stored in ``mytools`` package.
         MyTools.getSomething();
@@ -53,18 +54,64 @@ public class StudentPlayer extends HusPlayer {
         /////////////////////////////////////////////
         //V2 - Minimax n levels deep
         
-//        Node bestNode = Minimax(6, 0, board_state);
-//        
-//        HusMove bestMove = bestNode.getMove();
+        //Node bestNode = Minimax(4, 0, board_state);
+        
+        //HusMove bestMove = bestNode.getMove();
         
         
         /////////////////////////////////////////////
         //V3 Minimax with Alpha Beta Pruning
         
+        
+        //find current score of board
+        
+		//int score = (int) MyTools.EvaluationFunction(board_state, player_id, opponent_id, 0);		
+
+        
         int alpha = -10000;
         int beta = 10000;
-        
-        HusMove bestMoveAB = MinimaxAB(board_state, 3, alpha, beta);
+    	int turns = board_state.getTurnNumber();
+    	
+    	HusMove bestMoveAB = moves.get(0);
+    	
+    	
+        //bestMoveAB = MinimaxAB(board_state, 7, alpha, beta);
+
+    	
+    	//METHOD NUMERO UNO -- SEED BASED FIRST 50, then MONTE CARLO AFTER. 
+        //decicion based on turn move. 
+    	
+    	//new version sat april 2nd
+		int[] resultsCurrent = MyTools.HeuristicEvaluation(board_state, player_id, opponent_id);
+		double totalSeedsCurrent = resultsCurrent[0];
+		double totalPossibleSeeds = 96;
+		
+		double percentageTotal = totalSeedsCurrent/totalPossibleSeeds;
+		//System.out.println("Total Current: "+totalSeedsCurrent+" Total Possible: "+totalPossibleSeeds);
+		System.out.println("Percentage Total = "+percentageTotal);
+		
+		if (percentageTotal > 0.7){
+			bestMoveAB = MinimaxAB(board_state, 1, alpha, beta);
+			MyTools.greaterThan75Per = 1;
+			//System.out.println("Here!!!! >75%");
+		} else {
+			MyTools.greaterThan75Per = 0;
+			bestMoveAB = MinimaxAB(board_state, 6, alpha, beta);
+
+		}
+		
+
+    	//original
+//    	if (turns < 50){
+//            bestMoveAB = MinimaxAB(board_state, 7, alpha, beta);
+//    	} else {
+//            bestMoveAB = MinimaxAB(board_state, 1, alpha, beta);
+//    	}
+    	
+    	
+    	//METHOD DOS -- MONTE CARLO FOR ALL. 
+    	
+//    	bestMoveAB = MinimaxAB(board_state, 2, alpha, beta);
         
 
         ////////////////////////////////////////////
@@ -104,7 +151,7 @@ public class StudentPlayer extends HusPlayer {
         
     		
     		//run evaluation function on board. 
-    		int score = (int) MyTools.EvaluationFunction(board_state, player_id, opponent_id);		
+    		int score = (int) MyTools.EvaluationFunction(board_state, player_id, opponent_id, 0);		
 				
 			Node currentNode = new Node();
 			
@@ -211,7 +258,10 @@ public class StudentPlayer extends HusPlayer {
          
     //VERSION3.0 - Alpha-Beta Pruning Version
     
+    
+    
     public HusMove MinimaxAB(HusBoardState board_state, int depth, double alpha, double beta){
+    
     	
     	ArrayList<HusMove> moves = board_state.getLegalMoves();
     	double maxScore = 0;
@@ -229,14 +279,15 @@ public class StudentPlayer extends HusPlayer {
     			maxMove = moves.get(i);
     		}
     	}
-    	
+		System.out.println("The best move: "+maxMove.getPit());
+
     	return maxMove;
     }
 
     public double MaxValue(HusBoardState board_state, int depth, double alpha, double beta){
 
     	if(depth ==0 || board_state.getLegalMoves() == null){
-    		double score = MyTools.EvaluationFunction(board_state, player_id, opponent_id);	
+    		double score = MyTools.EvaluationFunction(board_state, player_id, opponent_id, 1);	
     		return score;
     		
     	} else {
@@ -249,7 +300,10 @@ public class StudentPlayer extends HusPlayer {
     			cloned_board_state.move(moves.get(i));
     			
     			alpha = Math.max(alpha, MinValue(cloned_board_state, depth-1, alpha, beta));
-    			if (alpha >= beta) return beta;
+    			if (alpha >= beta) {
+    				//System.out.println("MaxValue : Cutoff Occured, Alpha ("+alpha+") >= Beta ("+beta+"), Returning Beta");
+    				return beta;
+    			}
     			
     		}
     		return alpha;	
@@ -259,7 +313,7 @@ public class StudentPlayer extends HusPlayer {
     public double MinValue(HusBoardState board_state, int depth, double alpha, double beta){
     
     	if (depth == 0){
-    		double score = MyTools.EvaluationFunction(board_state, player_id, opponent_id);			
+    		double score = MyTools.EvaluationFunction(board_state, player_id, opponent_id, 1);			
     		return score;
     		
     	} else {
@@ -272,15 +326,16 @@ public class StudentPlayer extends HusPlayer {
     			cloned_board_state.move(moves.get(i));
     			beta = Math.min(beta, MaxValue(cloned_board_state, depth-1, alpha, beta));
     			
-    			if (alpha >= beta) return alpha;
+    			if (alpha >= beta) {
+    				//System.out.println("Min Vaue : Cutoff Occured, Alpha ("+alpha+") >= Beta ("+beta+") , Returning Alpha");
+    				return alpha;
+    			}
     		}
     		
     		return beta;
     	}
     }
-    
-
-    
+  
     //end of StudentPlayer
     
 }

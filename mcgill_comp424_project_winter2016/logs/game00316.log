@@ -1,0 +1,14 @@
+# Server version 0.08 running on wpa074049.wireless.mcgill.ca:8123
+# Game ID: 316
+# Board class: hus.HusBoard
+# Timeout: 2000
+# First Move Timeout: 30000
+# Date: Sat Apr 02 18:21:27 EDT 2016
+# Player 1: Player-0, '260467234', running on localhost
+# Player 2: Player-1, 'RandomHusPlayer', running on localhost
+START Player-0 260467234
+START Player-1 RandomHusPlayer
+PIT 0 6
+PIT 1 6
+GAMEOVER TIMEOUT WINNER 1
+# Game ended: Sat Apr 02 18:21:51 EDT 2016

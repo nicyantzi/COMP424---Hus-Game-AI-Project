@@ -9,6 +9,15 @@ import java.util.ArrayList;
 import student_player.mytools.MyTools;
 import student_player.mytree.Node;
 
+/****************************************
+*										*
+*	Nic Yantzi - 260467234				*
+*	Hus Project 						*
+*	COMP424 - Artificial Intelligence	*
+*										*							
+/***************************************/
+
+
 /** A Hus player submitted by a student. */
 public class StudentPlayer extends HusPlayer {
 
@@ -30,7 +39,8 @@ public class StudentPlayer extends HusPlayer {
         // Use ``player_id`` and ``opponent_id`` to get my pits and opponent pits.
     	int[] my_pits = pits[player_id];
         int[] op_pits = pits[opponent_id];
-        
+        int turnNumber = board_state.getTurnNumber();
+        System.out.println("\nNewTurn - Turn Number: "+turnNumber);
         System.out.println("Player_Id = "+player_id);
         System.out.println("Opponent_Id = "+opponent_id);
 
@@ -45,27 +55,23 @@ public class StudentPlayer extends HusPlayer {
         HusMove move = moves.get(0);
         
         
-        //System.out.println("Running minimax method...");
         /////////////////////////////////////////////
-        //V1
+        
+        //V1 - Minimax 1 level deep.
         
         //move = MinimaxDecision(moves, board_state);
         
         /////////////////////////////////////////////
+        
         //V2 - Minimax n levels deep
         
         //Node bestNode = Minimax(4, 0, board_state);
         
         //HusMove bestMove = bestNode.getMove();
         
-        
         /////////////////////////////////////////////
+        
         //V3 Minimax with Alpha Beta Pruning
-        
-        
-        //find current score of board
-        
-		//int score = (int) MyTools.EvaluationFunction(board_state, player_id, opponent_id, 0);		
 
         
         int alpha = -10000;
@@ -74,47 +80,26 @@ public class StudentPlayer extends HusPlayer {
     	
     	HusMove bestMoveAB = moves.get(0);
     	
-    	
-        //bestMoveAB = MinimaxAB(board_state, 7, alpha, beta);
-
-    	
-    	//METHOD NUMERO UNO -- SEED BASED FIRST 50, then MONTE CARLO AFTER. 
-        //decicion based on turn move. 
-    	
-    	//new version sat april 2nd
-		int[] resultsCurrent = MyTools.HeuristicEvaluation(board_state, player_id, opponent_id);
-		double totalSeedsCurrent = resultsCurrent[0];
+		double totalSeedsCurrent= MyTools.EvaluationFunction(board_state, player_id, opponent_id, 0);
 		double totalPossibleSeeds = 96;
 		
 		double percentageTotal = totalSeedsCurrent/totalPossibleSeeds;
-		//System.out.println("Total Current: "+totalSeedsCurrent+" Total Possible: "+totalPossibleSeeds);
 		System.out.println("Percentage Total = "+percentageTotal);
-		
+
 		if (percentageTotal > 0.7){
+			System.out.println("Running Monte Carlo, currently have more than 70% of the seeds");
 			bestMoveAB = MinimaxAB(board_state, 1, alpha, beta);
 			MyTools.greaterThan75Per = 1;
 			//System.out.println("Here!!!! >75%");
 		} else {
+			System.out.println("Running minimax with alpha-beta pruning to depth 6");
 			MyTools.greaterThan75Per = 0;
-			bestMoveAB = MinimaxAB(board_state, 6, alpha, beta);
+			bestMoveAB = MinimaxAB(board_state ,6, alpha, beta);
 
 		}
-		
-
-    	//original
-//    	if (turns < 50){
-//            bestMoveAB = MinimaxAB(board_state, 7, alpha, beta);
-//    	} else {
-//            bestMoveAB = MinimaxAB(board_state, 1, alpha, beta);
-//    	}
-    	
-    	
-    	//METHOD DOS -- MONTE CARLO FOR ALL. 
-    	
-//    	bestMoveAB = MinimaxAB(board_state, 2, alpha, beta);
-        
 
         ////////////////////////////////////////////
+
         //Code Given
 
         // We can see the effects of a move like this...
@@ -123,13 +108,15 @@ public class StudentPlayer extends HusPlayer {
 
         // But since this is a placeholder algorithm, we won't act on that information.
        
-        //V1
+        //RETURN THE CHOSEN MOVE. 
+
+        //METHOD V1
         //return move;
         
-        //V2
+        //METHOD V2
         //return bestMove;
         
-        //V3
+        //METHOD V3
         return bestMoveAB;
         
     }
@@ -152,13 +139,10 @@ public class StudentPlayer extends HusPlayer {
     		
     		//run evaluation function on board. 
     		int score = (int) MyTools.EvaluationFunction(board_state, player_id, opponent_id, 0);		
-				
 			Node currentNode = new Node();
-			
 			currentNode.setScore(score);
 			
         	return currentNode;
-        	
         	
         } else {
         	
@@ -172,11 +156,10 @@ public class StudentPlayer extends HusPlayer {
         	//if (myTurn == 1) System.out.println("Opponents Turn, find Min from "+moves.size()+" children\n");
         	
         	//Create node for minimax tree
-        	
 			Node currentNode = new Node();
 			
+			//ArrayList of scores for each possible move from the root of the tree. 
     		ArrayList<Integer> scores = new ArrayList<Integer>();
-
 
         	for(int i = 0; i < moves.size(); i++){
         		        		
@@ -208,7 +191,6 @@ public class StudentPlayer extends HusPlayer {
     						if(current > max){
     							max = scores.get(j);
     							//System.out.println("Max: "+max+" is move "+ j +" at depth of "+depth+".");
-    							//System.out.println("");
     							//int value = moves.get(j).getPit();
     							//System.out.println("Value of moves.get(j) = "+moves.get(j).getPit());
 
@@ -241,7 +223,6 @@ public class StudentPlayer extends HusPlayer {
     						if(current < min){
     							min = scores.get(j);
     							//System.out.println("Min: "+min+" is move "+j+" at depth of "+depth+".");
-    							//System.out.println("");
     							//int value = moves.get(j).getPit();
     							//System.out.println("Value of moves.get(j) = "+moves.get(j).getPit());
     							currentNode.setMove(moves.get(j));
@@ -257,8 +238,6 @@ public class StudentPlayer extends HusPlayer {
     }
          
     //VERSION3.0 - Alpha-Beta Pruning Version
-    
-    
     
     public HusMove MinimaxAB(HusBoardState board_state, int depth, double alpha, double beta){
     
@@ -331,11 +310,8 @@ public class StudentPlayer extends HusPlayer {
     				return alpha;
     			}
     		}
-    		
     		return beta;
     	}
     }
-  
     //end of StudentPlayer
-    
 }

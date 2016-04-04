@@ -1,0 +1,12 @@
+# Server version 0.08 running on cs-25.CS.McGill.CA:8123
+# Game ID: 402
+# Board class: hus.HusBoard
+# Timeout: 2000
+# First Move Timeout: 30000
+# Date: Sun Apr 03 20:52:21 EDT 2016
+# Player 1: Player-0, '260467234', running on localhost
+# Player 2: Player-1, 'RandomHusPlayer', running on localhost
+START Player-0 260467234
+START Player-1 RandomHusPlayer
+GAMEOVER TIMEOUT WINNER 1
+# Game ended: Sun Apr 03 20:52:55 EDT 2016

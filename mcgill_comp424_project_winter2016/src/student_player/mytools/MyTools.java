@@ -39,7 +39,6 @@ public class MyTools{
     	
     	} else {		//Option 1: Heuristic Eval with Monte Carlo
     		
-    		
     		int[] heuristicResults = HeuristicEvaluation(current_board, player_id, opponent_id);
         	int seedsTotal = heuristicResults[0];
         	int opponents01Pits = heuristicResults[1];
@@ -48,7 +47,6 @@ public class MyTools{
     		//seeds is reached, use Monte Carlo Search.
     		        	
         	if(greaterThan75Per == 1){
-        		//System.out.println("Seeds are greater than 75% now, using Monte Carlo Search!");
     	    	double monteCarloValue2 = MonteCarloEvaluationV2(current_board, player_id, opponent_id, 2000);
     	    	score = seedsTotal + monteCarloValue2;
         	} else {
@@ -69,7 +67,6 @@ public class MyTools{
     	
     	//want to check how many seeds are in capture locations total seeds, not pits
     	
-    	
     	int[][] currentPits = current_board.getPits();
 		int[] myPits = currentPits[player_id];
 		int[] oppPits = currentPits[opponent_id];
@@ -88,7 +85,6 @@ public class MyTools{
 		
 		
 		return scoreResults;
-    	
     	
     }
 
@@ -147,7 +143,7 @@ public class MyTools{
 		}
 		
 		double percentageWins = myWins/runs*100;
-		System.out.println("Monte-Carlo Rollout: Games Won: "+myWins+" of "+runs+". Percentage Wins = "+ percentageWins);
+		//System.out.println("Monte-Carlo Rollout: Games Won: "+myWins+" of "+runs+". Percentage Wins = "+ percentageWins);
 		
 		return percentageWins;
 		

@@ -40,6 +40,7 @@ public class StudentPlayer extends HusPlayer {
     	int[] my_pits = pits[player_id];
         int[] op_pits = pits[opponent_id];
         int turnNumber = board_state.getTurnNumber();
+
         System.out.println("\nNewTurn - Turn Number: "+turnNumber);
         System.out.println("Player_Id = "+player_id);
         System.out.println("Opponent_Id = "+opponent_id);
@@ -53,7 +54,6 @@ public class StudentPlayer extends HusPlayer {
         
         //BASIC VERSION THAT WAS GIVEN. 
         HusMove move = moves.get(0);
-        
         
         /////////////////////////////////////////////
         

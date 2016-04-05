@@ -46,9 +46,9 @@ public class MyTools{
     		//METHOD Choose Policy: Minimax with alpha beta pruning. Then when certain percentage of total game
     		//seeds is reached, use Monte Carlo Search.
         	
-        	int rollout89 = 5;
-        	int rollout79 = 5;
-        	int rollout69 = 5;
+        	int rollout89 = 8;
+        	int rollout79 = 8;
+        	int rollout69 = 8;
     		        	
         	if(greaterThanPer == 1){
     			//System.out.println("Currently have more than 90% of the seeds so using "+ rollout89 + " rollouts.");

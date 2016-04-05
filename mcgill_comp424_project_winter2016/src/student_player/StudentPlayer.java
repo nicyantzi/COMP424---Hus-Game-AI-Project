@@ -93,8 +93,8 @@ public class StudentPlayer extends HusPlayer {
 		int depth89 = 5;
 		int depth79 = 4;
 		int depth69 = 3;
-		int depth59 = 7;
-		int depthOther = 6;
+		int depth59 = 8;
+		int depthOther = 7;
 		
 
 		if (percentageTotal > 0.89){

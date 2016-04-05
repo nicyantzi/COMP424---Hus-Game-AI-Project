@@ -112,10 +112,10 @@ public class StudentPlayer extends HusPlayer {
 		} else if(percentageTotal > 0.59){
 			MyTools.greaterThanPer = 0;
 			System.out.println("Running Minimax AB at Depth "+depth59+".");
-			bestMoveAB = MinimaxAB(board_state, depth59, alpha, beta);
-			
+			bestMoveAB = MinimaxAB(board_state, depth59, alpha, beta);	
 		} else {
 			MyTools.greaterThanPer = 0;
+			System.out.println("Running Minimax AB at Depth "+depthOther+".");
 			bestMoveAB = MinimaxAB(board_state, depthOther, alpha, beta);
 		}
 

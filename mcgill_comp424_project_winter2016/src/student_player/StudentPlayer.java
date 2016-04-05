@@ -104,8 +104,8 @@ public class StudentPlayer extends HusPlayer {
 			System.out.println("Running MinimaxAB with MCTS at Depth "+depth79+". Currently have more than 80% of the seeds");
 			MyTools.greaterThanPer = 2;
 			bestMoveAB = MinimaxAB(board_state, depth79, alpha, beta);	
-		} else if (percentageTotal > 0.69){
-			System.out.println("Running MinimaxAB with MCTS at Depth "+depth69+". Currently have more than 70% of the seeds");
+		} else if (percentageTotal > 0.49){
+			System.out.println("Running MinimaxAB with MCTS at Depth "+depth69+". Currently have more than 49% of the seeds");
 			MyTools.greaterThanPer = 3;
 			bestMoveAB = MinimaxAB(board_state, depth69, alpha, beta);
 		} else {

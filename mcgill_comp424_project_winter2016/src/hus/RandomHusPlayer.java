@@ -15,8 +15,7 @@ public class RandomHusPlayer extends HusPlayer {
 
     public RandomHusPlayer() { super("RandomHusPlayer"); }
     
-public HusMove chooseMove(HusBoardState board_state)
-    {
+public HusMove chooseMove(HusBoardState board_state){
         
         long startTime = System.currentTimeMillis();
         

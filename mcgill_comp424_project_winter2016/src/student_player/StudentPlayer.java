@@ -110,7 +110,7 @@ public class StudentPlayer extends HusPlayer {
 			bestMoveAB = MinimaxAB(board_state, depth69, alpha, beta);
 		} else if(percentageTotal > 0.59){
 			MyTools.greaterThanPer = 0;
-			System.out.println("Running Minimax AB at Depth "+depth59+". Currently have more than 60& of the seeds.");
+			System.out.println("Running Minimax AB at Depth "+depth59+". Currently have more than 60% of the seeds.");
 			bestMoveAB = MinimaxAB(board_state, depth59, alpha, beta);	
 		} else {
 			MyTools.greaterThanPer = 0;

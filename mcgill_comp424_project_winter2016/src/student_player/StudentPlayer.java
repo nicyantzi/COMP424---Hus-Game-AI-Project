@@ -89,13 +89,12 @@ public class StudentPlayer extends HusPlayer {
 		double percentageTotal = totalSeedsCurrent/totalPossibleSeeds;
 		System.out.println("Percentage Total = "+percentageTotal);
 		
-		
+		//Depths for Different MinimaxAB methods based on percentage of seeds. 
 		int depth89 = 5;
 		int depth79 = 4;
 		int depth69 = 3;
 		int depth59 = 6;
 		int depthOther = 7;
-		
 
 		if (percentageTotal > 0.89){
 			System.out.println("Running MinimaxAB with MCTS at Depth "+depth89+". Currently have more than 90% of the seeds");

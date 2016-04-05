@@ -71,7 +71,8 @@ public class StudentPlayer extends HusPlayer {
         
         /////////////////////////////////////////////
         
-        //V3 Minimax with Alpha Beta Pruning
+        //V3 Minimax with Alpha Beta Pruning Using Monte Carlo Tree Search with
+        //Varying depths and rollouts based on positioning in game
 
         
         int alpha = -10000;
@@ -85,17 +86,30 @@ public class StudentPlayer extends HusPlayer {
 		
 		double percentageTotal = totalSeedsCurrent/totalPossibleSeeds;
 		System.out.println("Percentage Total = "+percentageTotal);
+		
+		
+		int depth89 = 3;
+		int depth79 = 3;
+		int depth69 = 3;
+		int depthOther = 6;
+		
 
-		if (percentageTotal > 0.7){
-			System.out.println("Running Monte Carlo, currently have more than 70% of the seeds");
-			bestMoveAB = MinimaxAB(board_state, 1, alpha, beta);
-			MyTools.greaterThan75Per = 1;
-			//System.out.println("Here!!!! >75%");
+		if (percentageTotal > 0.89){
+			System.out.println("Running MinimaxAB with MCTS at Depth "+depth89+". Currently have more than 90% of the seeds");
+			MyTools.greaterThanPer = 1;
+			bestMoveAB = MinimaxAB(board_state, depth89, alpha, beta);
+		} else if( percentageTotal > 0.79){
+			System.out.println("Running MinimaxAB with MCTS at Depth "+depth79+". Currently have more than 80% of the seeds");
+			MyTools.greaterThanPer = 2;
+			bestMoveAB = MinimaxAB(board_state, depth79, alpha, beta);	
+		} else if (percentageTotal > 0.69){
+			System.out.println("Running MinimaxAB with MCTS at Depth "+depth69+". Currently have more than 70% of the seeds");
+			MyTools.greaterThanPer = 3;
+			bestMoveAB = MinimaxAB(board_state, depth69, alpha, beta);
 		} else {
-			System.out.println("Running minimax with alpha-beta pruning to depth 6");
-			MyTools.greaterThan75Per = 0;
-			bestMoveAB = MinimaxAB(board_state ,6, alpha, beta);
-
+			System.out.println("Running Minimax AB at Depth "+depthOther+".");
+			MyTools.greaterThanPer = 0;
+			bestMoveAB = MinimaxAB(board_state, depthOther, alpha, beta);
 		}
 
         ////////////////////////////////////////////

@@ -7,7 +7,7 @@ import hus.HusMove;
 
 public class MyTools{
 
-	public static int greaterThan75Per = 0;
+	public static int greaterThanPer = 0;
 
     public static double getSomething(){
         return Math.random();
@@ -26,7 +26,8 @@ public class MyTools{
     	//turn number
     	int turns = current_board.getTurnNumber();
     	
-    	if (option == 0){    	//Option 0: Heuristic Eval on current board. 
+    	if (option == 0){    	//Option 0: Heuristic Eval on current board. Using when want to calculate current board score,
+    							//as well as when i am running MinimaxAB when i have less than 70% of the max seeds. 
 
     		int[] heuristicResults = HeuristicEvaluation(current_board, player_id, opponent_id);
         	int seedsTotal = heuristicResults[0];
@@ -37,7 +38,7 @@ public class MyTools{
         	
         	return score;
     	
-    	} else {		//Option 1: Heuristic Eval with Monte Carlo
+    	} else {		//Option 1: Minimax with MCTS, have more than a the cutoff, based on actual %, rollouts determined.
     		
     		int[] heuristicResults = HeuristicEvaluation(current_board, player_id, opponent_id);
         	int seedsTotal = heuristicResults[0];
@@ -45,16 +46,30 @@ public class MyTools{
     		
     		//METHOD Choose Policy: Minimax with alpha beta pruning. Then when certain percentage of total game
     		//seeds is reached, use Monte Carlo Search.
+        	
+        	int rollout89 = 10;
+        	int rollout79 = 10;
+        	int rollout69 = 10;
     		        	
-        	if(greaterThan75Per == 1){
-    	    	double monteCarloValue2 = MonteCarloEvaluationV2(current_board, player_id, opponent_id, 2000);
+        	if(greaterThanPer == 1){
+    			//System.out.println("Currently have more than 90% of the seeds so using "+ rollout89 + " rollouts.");
+    	    	double monteCarloValue2 = MonteCarloEvaluationV2(current_board, player_id, opponent_id, 20);
+    	    	score = seedsTotal + monteCarloValue2;
+        	} else if(greaterThanPer == 2){
+        		//System.out.println("Currently have more than 80% of the seeds so using "+ rollout79 + " rollouts.");
+    	    	double monteCarloValue2 = MonteCarloEvaluationV2(current_board, player_id, opponent_id, 20);
+    	    	score = seedsTotal + monteCarloValue2;
+        	} else if(greaterThanPer == 3){
+        		//System.out.println("Currently have more than 80% of the seeds so using "+ rollout79 + " rollouts.");
+    	    	double monteCarloValue2 = MonteCarloEvaluationV2(current_board, player_id, opponent_id, 20);
     	    	score = seedsTotal + monteCarloValue2;
         	} else {
         		score = seedsTotal;
         	}
-           		
     		return score;	
     	}
+    	
+    	
     }
     
     public static int[] HeuristicEvaluation(HusBoardState current_board, int player_id, int opponent_id){

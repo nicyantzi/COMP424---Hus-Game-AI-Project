@@ -33,12 +33,15 @@ public class StudentPlayer extends HusPlayer {
      * for another example agent. */
     public HusMove chooseMove(HusBoardState board_state)
     {
+    	
+    	long startTime = System.currentTimeMillis();
+    	
         // Get the contents of the pits so we can use it to make decisions.
-        int[][] pits = board_state.getPits();
+//        int[][] pits = board_state.getPits();
 
         // Use ``player_id`` and ``opponent_id`` to get my pits and opponent pits.
-    	int[] my_pits = pits[player_id];
-        int[] op_pits = pits[opponent_id];
+//    	int[] my_pits = pits[player_id];
+//      int[] op_pits = pits[opponent_id];
         int turnNumber = board_state.getTurnNumber();
 
         System.out.println("\nNewTurn - Turn Number: "+turnNumber);
@@ -77,7 +80,6 @@ public class StudentPlayer extends HusPlayer {
         
         int alpha = -10000;
         int beta = 10000;
-    	int turns = board_state.getTurnNumber();
     	
     	HusMove bestMoveAB = moves.get(0);
     	
@@ -122,6 +124,7 @@ public class StudentPlayer extends HusPlayer {
 
         // But since this is a placeholder algorithm, we won't act on that information.
        
+        
         //RETURN THE CHOSEN MOVE. 
 
         //METHOD V1
@@ -131,6 +134,12 @@ public class StudentPlayer extends HusPlayer {
         //return bestMove;
         
         //METHOD V3
+        
+        long endTime = System.currentTimeMillis();
+        
+        long totalTime = endTime - startTime;
+        System.out.println("Total Time (in milliseconds) for this turn: "+totalTime); 
+        
         return bestMoveAB;
         
     }

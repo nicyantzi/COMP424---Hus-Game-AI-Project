@@ -88,8 +88,8 @@ public class StudentPlayer extends HusPlayer {
 		System.out.println("Percentage Total = "+percentageTotal);
 		
 		
-		int depth89 = 5;
-		int depth79 = 4;
+		int depth89 = 4;
+		int depth79 = 3;
 		int depth69 = 3;
 		int depthOther = 6;
 		

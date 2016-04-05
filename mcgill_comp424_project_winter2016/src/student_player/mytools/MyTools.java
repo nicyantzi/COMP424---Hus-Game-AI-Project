@@ -47,8 +47,8 @@ public class MyTools{
     		//METHOD Choose Policy: Minimax with alpha beta pruning. Then when certain percentage of total game
     		//seeds is reached, use Monte Carlo Search.
         	
-        	int rollout89 = 10;
-        	int rollout79 = 10;
+        	int rollout89 = 5;
+        	int rollout79 = 5;
         	int rollout69 = 10;
     		        	
         	if(greaterThanPer == 1){

@@ -44,13 +44,12 @@ public class StudentPlayer extends HusPlayer {
 //      int[] op_pits = pits[opponent_id];
         int turnNumber = board_state.getTurnNumber();
 
-        System.out.println("\nNewTurn - Turn Number: "+turnNumber);
-        System.out.println("Player_Id = "+player_id);
-        System.out.println("Opponent_Id = "+opponent_id);
+        System.out.println("\n\nMy Turn: "+player_id+"\nTurn Number: "+turnNumber);
+        // System.out.println("Player_Id = "+player_id);
+        // System.out.println("Opponent_Id = "+opponent_id);
 
         // Use code stored in ``mytools`` package.
         MyTools.getSomething();
-        
 
         // Get the legal moves for the current board state.
         ArrayList<HusMove> moves = board_state.getLegalMoves();
@@ -89,6 +88,9 @@ public class StudentPlayer extends HusPlayer {
 		double percentageTotal = totalSeedsCurrent/totalPossibleSeeds;
 		System.out.println("Percentage Total = "+percentageTotal);
 		
+
+		//Various Policies depending on the set of states you are in. 
+		//Set of states corresponds to the percentage of seeds you have in the board.
 		//Depths for Different MinimaxAB methods based on percentage of seeds. 
 		int depth89 = 5;
 		int depth79 = 4;
@@ -96,21 +98,21 @@ public class StudentPlayer extends HusPlayer {
 		int depth59 = 7;
 		int depthOther = 6;
 
-		if (percentageTotal > 0.89){
-			System.out.println("Running MinimaxAB with MCTS at Depth "+depth89+". Currently have more than 90% of the seeds.");
-			MyTools.greaterThanPer = 1;
-			bestMoveAB = MinimaxAB(board_state, depth89, alpha, beta);
-		} else if( percentageTotal > 0.79){
-			System.out.println("Running MinimaxAB with MCTS at Depth "+depth79+". Currently have more than 80% of the seeds.");
-			MyTools.greaterThanPer = 2;
-			bestMoveAB = MinimaxAB(board_state, depth79, alpha, beta);	
-		} else if (percentageTotal > 0.69){
-			System.out.println("Running MinimaxAB with MCTS at Depth "+depth69+". Currently have more than 70% of the seeds.");
-			MyTools.greaterThanPer = 3;
-			bestMoveAB = MinimaxAB(board_state, depth69, alpha, beta);
-		} else if(percentageTotal > 0.59){
+		// if (percentageTotal > 0.89){
+		// 	System.out.println("Running MinimaxAB with MCTS at Depth "+depth89+". Currently have more than 90% of the seeds.");
+		// 	MyTools.greaterThanPer = 1;
+		// 	bestMoveAB = MinimaxAB(board_state, depth89, alpha, beta);
+		// } else if( percentageTotal > 0.79){
+		// 	System.out.println("Running MinimaxAB with MCTS at Depth "+depth79+". Currently have more than 80% of the seeds.");
+		// 	MyTools.greaterThanPer = 2;
+		// 	bestMoveAB = MinimaxAB(board_state, depth79, alpha, beta);	
+		// } else if (percentageTotal > 0.69){
+		// 	System.out.println("Running MinimaxAB with MCTS at Depth "+depth69+". Currently have more than 70% of the seeds.");
+		// 	MyTools.greaterThanPer = 3;
+		// 	bestMoveAB = MinimaxAB(board_state, depth69, alpha, beta);
+		if(percentageTotal > 0.59){
 			MyTools.greaterThanPer = 0;
-			System.out.println("Running Minimax AB at Depth "+depth59+". Currently have more than 60% of the seeds.");
+			System.out.println("Running Minimax AB at Depth "+depth59+". Currently have more than 0% of the seeds.");
 			bestMoveAB = MinimaxAB(board_state, depth59, alpha, beta);	
 		} else {
 			MyTools.greaterThanPer = 0;

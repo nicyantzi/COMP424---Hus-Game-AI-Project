@@ -93,7 +93,7 @@ public class StudentPlayer extends HusPlayer {
 		int depth89 = 5;
 		int depth79 = 4;
 		int depth69 = 3;
-		int depth59 = 8;
+		int depth59 = 6;
 		int depthOther = 7;
 		
 

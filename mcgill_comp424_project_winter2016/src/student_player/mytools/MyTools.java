@@ -1,9 +1,7 @@
 package student_player.mytools;
 
-import java.util.ArrayList;
 
 import hus.HusBoardState;
-import hus.HusMove;
 
 public class MyTools{
 
@@ -24,7 +22,6 @@ public class MyTools{
     	//initialize the score we will return
     	double score = 0;
     	//turn number
-    	int turns = current_board.getTurnNumber();
     	
     	if (option == 0){    	//Option 0: Heuristic Eval on current board. Using when want to calculate current board score,
     							//as well as when i am running MinimaxAB when i have less than 70% of the max seeds. 
@@ -101,40 +98,6 @@ public class MyTools{
 		return scoreResults;
     	
     }
-
-	public static double MonteCarloEvaluation(HusBoardState current_board, int player_id, int opponent_id){
-		
-		ArrayList<HusMove> moves = current_board.getLegalMoves();
-		double myWins = 0;
-		double oppWins = 0;
-		
-		for(int i = 0; i < moves.size(); i++){
-			
-			HusBoardState cloned_board_state = (HusBoardState) current_board.clone();
-			cloned_board_state.move(moves.get(i));
-			
-			while(!(cloned_board_state.gameOver())){
-				cloned_board_state.move(cloned_board_state.getRandomMove());
-			}
-			int winner = cloned_board_state.getWinner();
-			
-			if(winner == player_id){
-				myWins++;
-				//System.out.println("Monte-Carlo Rollout: I win.");
-			} else if (winner == opponent_id){
-				oppWins++;
-				//System.out.println("Monte-Carlo Rollout: Opponent wins");
-			} else{
-				//System.out.println("Monte-Carlo Rollout: Draw or something else...");
-			}
-
-		}
-		
-		double percentageWins = myWins/moves.size()*100;
-		//System.out.println("Monte-Carlo Rollout: Games Won: "+myWins+" of "+(moves.size())+". Percentage Wins = "+ percentageWins);
-		
-		return percentageWins;
-	}
 	
 	
 	public static double MonteCarloEvaluationV2(HusBoardState current_board, int player_id, int opponent_id, int runs){

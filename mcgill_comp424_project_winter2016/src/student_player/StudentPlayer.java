@@ -93,24 +93,24 @@ public class StudentPlayer extends HusPlayer {
 		int depth89 = 5;
 		int depth79 = 4;
 		int depth69 = 3;
-		int depth59 = 6;
-		int depthOther = 7;
+		int depth59 = 7;
+		int depthOther = 6;
 
 		if (percentageTotal > 0.89){
-			System.out.println("Running MinimaxAB with MCTS at Depth "+depth89+". Currently have more than 90% of the seeds");
+			System.out.println("Running MinimaxAB with MCTS at Depth "+depth89+". Currently have more than 90% of the seeds.");
 			MyTools.greaterThanPer = 1;
 			bestMoveAB = MinimaxAB(board_state, depth89, alpha, beta);
 		} else if( percentageTotal > 0.79){
-			System.out.println("Running MinimaxAB with MCTS at Depth "+depth79+". Currently have more than 80% of the seeds");
+			System.out.println("Running MinimaxAB with MCTS at Depth "+depth79+". Currently have more than 80% of the seeds.");
 			MyTools.greaterThanPer = 2;
 			bestMoveAB = MinimaxAB(board_state, depth79, alpha, beta);	
 		} else if (percentageTotal > 0.69){
-			System.out.println("Running MinimaxAB with MCTS at Depth "+depth69+". Currently have more than 70% of the seeds");
+			System.out.println("Running MinimaxAB with MCTS at Depth "+depth69+". Currently have more than 70% of the seeds.");
 			MyTools.greaterThanPer = 3;
 			bestMoveAB = MinimaxAB(board_state, depth69, alpha, beta);
 		} else if(percentageTotal > 0.59){
 			MyTools.greaterThanPer = 0;
-			System.out.println("Running Minimax AB at Depth "+depth59+".");
+			System.out.println("Running Minimax AB at Depth "+depth59+". Currently have more than 60& of the seeds.");
 			bestMoveAB = MinimaxAB(board_state, depth59, alpha, beta);	
 		} else {
 			MyTools.greaterThanPer = 0;

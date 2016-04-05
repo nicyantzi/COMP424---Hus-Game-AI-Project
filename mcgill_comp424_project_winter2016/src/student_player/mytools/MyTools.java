@@ -48,8 +48,8 @@ public class MyTools{
     		//seeds is reached, use Monte Carlo Search.
         	
         	int rollout89 = 250;
-        	int rollout79 = 100;
-        	int rollout69 = 200;
+        	int rollout79 = 125;
+        	int rollout69 = 300;
     		        	
         	if(greaterThanPer == 1){
     			//System.out.println("Currently have more than 90% of the seeds so using "+ rollout89 + " rollouts.");

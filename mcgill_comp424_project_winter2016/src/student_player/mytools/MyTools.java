@@ -42,26 +42,25 @@ public class MyTools{
     		
     		int[] heuristicResults = HeuristicEvaluation(current_board, player_id, opponent_id);
         	int seedsTotal = heuristicResults[0];
-        	int opponents01Pits = heuristicResults[1];
     		
     		//METHOD Choose Policy: Minimax with alpha beta pruning. Then when certain percentage of total game
     		//seeds is reached, use Monte Carlo Search.
         	
-        	int rollout89 = 250;
-        	int rollout79 = 150;
-        	int rollout69 = 250;
+        	int rollout89 = 200;
+        	int rollout79 = 125;
+        	int rollout69 = 200;
     		        	
         	if(greaterThanPer == 1){
     			//System.out.println("Currently have more than 90% of the seeds so using "+ rollout89 + " rollouts.");
-    	    	double monteCarloValue2 = MonteCarloEvaluationV2(current_board, player_id, opponent_id, 20);
+    	    	double monteCarloValue2 = MonteCarloEvaluationV2(current_board, player_id, opponent_id, rollout89);
     	    	score = seedsTotal + monteCarloValue2;
         	} else if(greaterThanPer == 2){
         		//System.out.println("Currently have more than 80% of the seeds so using "+ rollout79 + " rollouts.");
-    	    	double monteCarloValue2 = MonteCarloEvaluationV2(current_board, player_id, opponent_id, 20);
+    	    	double monteCarloValue2 = MonteCarloEvaluationV2(current_board, player_id, opponent_id, rollout79);
     	    	score = seedsTotal + monteCarloValue2;
         	} else if(greaterThanPer == 3){
         		//System.out.println("Currently have more than 80% of the seeds so using "+ rollout79 + " rollouts.");
-    	    	double monteCarloValue2 = MonteCarloEvaluationV2(current_board, player_id, opponent_id, 20);
+    	    	double monteCarloValue2 = MonteCarloEvaluationV2(current_board, player_id, opponent_id, rollout69);
     	    	score = seedsTotal + monteCarloValue2;
         	} else {
         		score = seedsTotal;

@@ -93,6 +93,7 @@ public class StudentPlayer extends HusPlayer {
 		int depth89 = 5;
 		int depth79 = 4;
 		int depth69 = 3;
+		int depth59 = 7;
 		int depthOther = 6;
 		
 
@@ -108,8 +109,12 @@ public class StudentPlayer extends HusPlayer {
 			System.out.println("Running MinimaxAB with MCTS at Depth "+depth69+". Currently have more than 70% of the seeds");
 			MyTools.greaterThanPer = 3;
 			bestMoveAB = MinimaxAB(board_state, depth69, alpha, beta);
+		} else if(percentageTotal > 0.59){
+			MyTools.greaterThanPer = 0;
+			System.out.println("Running Minimax AB at Depth "+depth59+".");
+			bestMoveAB = MinimaxAB(board_state, depth59, alpha, beta);
+			
 		} else {
-			System.out.println("Running Minimax AB at Depth "+depthOther+".");
 			MyTools.greaterThanPer = 0;
 			bestMoveAB = MinimaxAB(board_state, depthOther, alpha, beta);
 		}

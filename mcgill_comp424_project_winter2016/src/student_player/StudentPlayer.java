@@ -34,7 +34,7 @@ public class StudentPlayer extends HusPlayer {
     public HusMove chooseMove(HusBoardState board_state)
     {
     	
-    	long startTime = System.currentTimeMillis();
+        long endTime = System.nanoTime() + 1900000000;
     	
         // Get the contents of the pits so we can use it to make decisions.
 //        int[][] pits = board_state.getPits();
@@ -44,7 +44,7 @@ public class StudentPlayer extends HusPlayer {
 //      int[] op_pits = pits[opponent_id];
         int turnNumber = board_state.getTurnNumber();
 
-        System.out.println("\n\nMy Turn: "+player_id+"\nTurn Number: "+turnNumber);
+        System.out.println("\nMy Turn: "+player_id+",Turn Number: "+turnNumber);
         // System.out.println("Player_Id = "+player_id);
         // System.out.println("Opponent_Id = "+opponent_id);
 
@@ -92,31 +92,31 @@ public class StudentPlayer extends HusPlayer {
 		//Various Policies depending on the set of states you are in. 
 		//Set of states corresponds to the percentage of seeds you have in the board.
 		//Depths for Different MinimaxAB methods based on percentage of seeds. 
-		int depth89 = 5;
-		int depth79 = 4;
-		int depth69 = 3;
-		int depth59 = 7;
+		int depth83 = 8;
+		int depth73 = 8;
+        int depth63 = 7;
+		int depth53 = 7;
 		int depthOther = 6;
-
-		// if (percentageTotal > 0.89){
-		// 	System.out.println("Running MinimaxAB with MCTS at Depth "+depth89+". Currently have more than 90% of the seeds.");
-		// 	MyTools.greaterThanPer = 1;
-		// 	bestMoveAB = MinimaxAB(board_state, depth89, alpha, beta);
-		// } else if( percentageTotal > 0.79){
-		// 	System.out.println("Running MinimaxAB with MCTS at Depth "+depth79+". Currently have more than 80% of the seeds.");
-		// 	MyTools.greaterThanPer = 2;
-		// 	bestMoveAB = MinimaxAB(board_state, depth79, alpha, beta);	
-		// } else if (percentageTotal > 0.69){
-		// 	System.out.println("Running MinimaxAB with MCTS at Depth "+depth69+". Currently have more than 70% of the seeds.");
-		// 	MyTools.greaterThanPer = 3;
-		// 	bestMoveAB = MinimaxAB(board_state, depth69, alpha, beta);
-		if(percentageTotal > 0.59){
-			MyTools.greaterThanPer = 0;
-			System.out.println("Running Minimax AB at Depth "+depth59+". Currently have more than 59% of the seeds.");
-			bestMoveAB = MinimaxAB(board_state, depth59, alpha, beta);	
+	
+        if(percentageTotal > 0.83){
+            MyTools.greaterThanPer = 1;
+            System.out.println("Running MinimaxAB "+depth83);
+            bestMoveAB = MinimaxAB(board_state, depth83, alpha, beta);
+        } else if (percentageTotal > 0.73){
+            System.out.println("Running MinimaxAB "+depth73);
+            MyTools.greaterThanPer = 1;
+            bestMoveAB = MinimaxAB(board_state, depth73, alpha, beta);
+        } else if (percentageTotal > 0.63){
+            System.out.println("Running MinimaxAB "+depth63);
+            MyTools.greaterThanPer = 1;
+            bestMoveAB = MinimaxAB(board_state, depth63, alpha, beta); 
+        } else if(percentageTotal > 0.53){
+			MyTools.greaterThanPer = 1;
+			System.out.println("Running MinimaxAB "+depth53);
+			bestMoveAB = MinimaxAB(board_state, depth53, alpha, beta);
 		} else {
 			MyTools.greaterThanPer = 0;
-			System.out.println("Running Minimax AB at Depth "+depthOther+".");
+			System.out.println("Running MinimaxAB "+depthOther+".");
 			bestMoveAB = MinimaxAB(board_state, depthOther, alpha, beta);
 		}
 
@@ -125,8 +125,8 @@ public class StudentPlayer extends HusPlayer {
         //Code Given
 
         // We can see the effects of a move like this...
-        HusBoardState cloned_board_state = (HusBoardState) board_state.clone();
-        cloned_board_state.move(move);
+        // HusBoardState cloned_board_state = (HusBoardState) board_state.clone();
+        // cloned_board_state.move(move);
 
         // But since this is a placeholder algorithm, we won't act on that information.
        
@@ -141,11 +141,10 @@ public class StudentPlayer extends HusPlayer {
         
         //METHOD V3
         
-        long endTime = System.currentTimeMillis();
+        long timeTook = endTime - System.nanoTime();
         
-        long totalTime = endTime - startTime;
-        System.out.println("Total Time (in milliseconds) for this turn: "+totalTime); 
-        
+        System.out.println("Time took in nanoseconds "+timeTook);
+       
         return bestMoveAB;
         
     }
@@ -154,117 +153,117 @@ public class StudentPlayer extends HusPlayer {
     //minimax method that finds the best move to make based on a evaluation function that looks 
     //x levels deep, where x is a parameter (depth) passed in. 
     
-    public Node Minimax(int depth, int myTurn, HusBoardState board_state) {
+//     public Node Minimax(int depth, int myTurn, HusBoardState board_state) {
     	
     	
-//    	if (myTurn == 0) System.out.println("My Turn");
-//    	if (myTurn == 1) System.out.println("Opponents Turn");
+// //    	if (myTurn == 0) System.out.println("My Turn");
+// //    	if (myTurn == 1) System.out.println("Opponents Turn");
     	
-        if(depth == 0) {
+//         if(depth == 0) {
        
-        	//System.out.println("Reached depth of 0");
-        	//depth desired reached, we want to evaluate the score of the gameboard at this depth
+//         	//System.out.println("Reached depth of 0");
+//         	//depth desired reached, we want to evaluate the score of the gameboard at this depth
         
     		
-    		//run evaluation function on board. 
-    		int score = (int) MyTools.EvaluationFunction(board_state, player_id, opponent_id, 0);		
-			Node currentNode = new Node();
-			currentNode.setScore(score);
+//     		//run evaluation function on board. 
+//     		int score = (int) MyTools.EvaluationFunction(board_state, player_id, opponent_id, 0);		
+// 			Node currentNode = new Node();
+// 			currentNode.setScore(score);
 			
-        	return currentNode;
+//         	return currentNode;
         	
-        } else {
+//         } else {
         	
-        	//Depth desired not reached yet, depending on whose turn find min or max.
+//         	//Depth desired not reached yet, depending on whose turn find min or max.
         	
-            //Game not over so get a list of possible moves, then try each possible move. 
+//             //Game not over so get a list of possible moves, then try each possible move. 
         	
-        	ArrayList<HusMove> moves = board_state.getLegalMoves(); 
+//         	ArrayList<HusMove> moves = board_state.getLegalMoves(); 
         	
-        	//if (myTurn == 0) System.out.println("My Turn, find Max move from "+moves.size()+" children\n");
-        	//if (myTurn == 1) System.out.println("Opponents Turn, find Min from "+moves.size()+" children\n");
+//         	//if (myTurn == 0) System.out.println("My Turn, find Max move from "+moves.size()+" children\n");
+//         	//if (myTurn == 1) System.out.println("Opponents Turn, find Min from "+moves.size()+" children\n");
         	
-        	//Create node for minimax tree
-			Node currentNode = new Node();
+//         	//Create node for minimax tree
+// 			Node currentNode = new Node();
 			
-			//ArrayList of scores for each possible move from the root of the tree. 
-    		ArrayList<Integer> scores = new ArrayList<Integer>();
+// 			//ArrayList of scores for each possible move from the root of the tree. 
+//     		ArrayList<Integer> scores = new ArrayList<Integer>();
 
-        	for(int i = 0; i < moves.size(); i++){
+//         	for(int i = 0; i < moves.size(); i++){
         		        		
-        		//list that will contain all the scores of curentNode's children
+//         		//list that will contain all the scores of curentNode's children
    
-        		//clone the current board, then try the move i. 
-        		HusBoardState cloned_board_state = (HusBoardState) board_state.clone();
-    			cloned_board_state.move(moves.get(i));
+//         		//clone the current board, then try the move i. 
+//         		HusBoardState cloned_board_state = (HusBoardState) board_state.clone();
+//     			cloned_board_state.move(moves.get(i));
 			
-    			if(myTurn == 0) { //maximizing function
-    				//System.out.println("My Turn find maximum. Depth = "+depth + " Current Move = "+i);
+//     			if(myTurn == 0) { //maximizing function
+//     				//System.out.println("My Turn find maximum. Depth = "+depth + " Current Move = "+i);
     				
-    				//recursive call to find value at node
-    				Node lowerNode = new Node();
+//     				//recursive call to find value at node
+//     				Node lowerNode = new Node();
     				
-    				lowerNode = Minimax((depth-1), 1, cloned_board_state);
-    				int lowerScore = lowerNode.getScore();
+//     				lowerNode = Minimax((depth-1), 1, cloned_board_state);
+//     				int lowerScore = lowerNode.getScore();
     				
-    				scores.add(lowerScore);
+//     				scores.add(lowerScore);
     				
-    				//once you are on the last possible move on that group of moves.
-					int max = -100;
+//     				//once you are on the last possible move on that group of moves.
+// 					int max = -100;
     				
-    				if(i == (moves.size()-1)){
-    					//System.out.println(scores);
-    					//get max value in scores list
-    					for (int j = 0; j < scores.size(); j++){
-    						int current = scores.get(j);
-    						if(current > max){
-    							max = scores.get(j);
-    							//System.out.println("Max: "+max+" is move "+ j +" at depth of "+depth+".");
-    							//int value = moves.get(j).getPit();
-    							//System.out.println("Value of moves.get(j) = "+moves.get(j).getPit());
+//     				if(i == (moves.size()-1)){
+//     					//System.out.println(scores);
+//     					//get max value in scores list
+//     					for (int j = 0; j < scores.size(); j++){
+//     						int current = scores.get(j);
+//     						if(current > max){
+//     							max = scores.get(j);
+//     							//System.out.println("Max: "+max+" is move "+ j +" at depth of "+depth+".");
+//     							//int value = moves.get(j).getPit();
+//     							//System.out.println("Value of moves.get(j) = "+moves.get(j).getPit());
 
-    	        				currentNode.setMove(moves.get(j));
-    	        				currentNode.setScore(max);
-    						}
-    					}
-    				}
+//     	        				currentNode.setMove(moves.get(j));
+//     	        				currentNode.setScore(max);
+//     						}
+//     					}
+//     				}
     				
-    			} else if (myTurn == 1) { //minimizing function
-    				//System.out.println("Opponents Turn, find minimum. Depth = "+ depth+" Current Move = "+i);
+//     			} else if (myTurn == 1) { //minimizing function
+//     				//System.out.println("Opponents Turn, find minimum. Depth = "+ depth+" Current Move = "+i);
     				
-    				//recursive call to find value at node
+//     				//recursive call to find value at node
     				
-    				Node lowerNode = new Node();
+//     				Node lowerNode = new Node();
     				
-    				lowerNode = Minimax((depth-1), 0, cloned_board_state);
-    				int lowerScore = lowerNode.getScore();
+//     				lowerNode = Minimax((depth-1), 0, cloned_board_state);
+//     				int lowerScore = lowerNode.getScore();
     				
-    				scores.add(lowerScore);
+//     				scores.add(lowerScore);
     				
-    				//once you are on the last possible move on that group of moves.
-    				int min = 100;
+//     				//once you are on the last possible move on that group of moves.
+//     				int min = 100;
     				
-    				if(i == (moves.size()-1)){
-    					//System.out.println(scores);
-    					//get the min value in scores list
-    					for(int j = 0; j < scores.size(); j++){
-    						int current = scores.get(j);
-    						if(current < min){
-    							min = scores.get(j);
-    							//System.out.println("Min: "+min+" is move "+j+" at depth of "+depth+".");
-    							//int value = moves.get(j).getPit();
-    							//System.out.println("Value of moves.get(j) = "+moves.get(j).getPit());
-    							currentNode.setMove(moves.get(j));
-    							currentNode.setScore(min);
-    						}
-    					}
-    				}	
-    			}
+//     				if(i == (moves.size()-1)){
+//     					//System.out.println(scores);
+//     					//get the min value in scores list
+//     					for(int j = 0; j < scores.size(); j++){
+//     						int current = scores.get(j);
+//     						if(current < min){
+//     							min = scores.get(j);
+//     							//System.out.println("Min: "+min+" is move "+j+" at depth of "+depth+".");
+//     							//int value = moves.get(j).getPit();
+//     							//System.out.println("Value of moves.get(j) = "+moves.get(j).getPit());
+//     							currentNode.setMove(moves.get(j));
+//     							currentNode.setScore(min);
+//     						}
+//     					}
+//     				}	
+//     			}
     			
-        	}
-        	return currentNode;
-        }       	
-    }
+//         	}
+//         	return currentNode;
+//         }       	
+//     }
          
     //VERSION3.0 - Alpha-Beta Pruning Version
     

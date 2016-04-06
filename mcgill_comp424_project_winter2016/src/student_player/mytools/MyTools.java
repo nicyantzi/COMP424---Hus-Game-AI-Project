@@ -2,6 +2,17 @@ package student_player.mytools;
 
 
 import hus.HusBoardState;
+import java.util.Random;
+
+
+/****************************************
+*										*
+*	Nic Yantzi - 260467234				*
+*	Hus Project 						*
+*	COMP424 - Artificial Intelligence	*
+*										*							
+/***************************************/
+
 
 public class MyTools{
 
@@ -27,42 +38,95 @@ public class MyTools{
     							//as well as when i am running MinimaxAB when i have less than 70% of the max seeds. 
 
     		int[] heuristicResults = HeuristicEvaluation(current_board, player_id, opponent_id);
-        	int seedsTotal = heuristicResults[0];
-        	int opponents01Pits = heuristicResults[1];
+        	double seedsTotal = (double) heuristicResults[0];
         	
-        	
-        	score = 0*opponents01Pits + 1*seedsTotal;
+        	score = seedsTotal;
         	
         	return score;
     	
-    	} else {		//Option 1: Minimax with MCTS, have more than a the cutoff, based on actual %, rollouts determined.
+    	} else if (option ==1) {		//Option 1: My Player Minimax with MCTS, have more than a the cutoff, based on actual %, rollouts determined.
     		
-    		int[] heuristicResults = HeuristicEvaluation(current_board, player_id, opponent_id);
-        	int seedsTotal = heuristicResults[0];
+    	
+        	int boardWinner = EndBoardEvaluation(current_board,player_id,opponent_id);
+
+        	//want to see if the minimax level i have run too has a game board winner, if it is me, then
+        	//definitly want to chose the move. If opponent then definitly dont want to chose this move. 
+        	//if no winner at this level then i continue with the evaluation of the game board using
+        	//evaluation function only, or evaluation with monte carlo rollouts. 
+
+        	if (boardWinner == 1){
+        		score = 1000;
+        		return score;
+        	} else if (boardWinner == -1){
+        		score = -1000;
+        		return score;
+        	} else {    //boardWinner == 0
+
+                int[] heuristicResults = HeuristicEvaluation(current_board, player_id, opponent_id);
+                double seedsTotal = (double) heuristicResults[0];
+                double seedsBack = (double) heuristicResults[2];
+                double seedsBackPer = seedsBack/seedsTotal *100;
+                //System.out.println("Seeds Back Per = "+seedsBackPer);
+
+	        	//METHOD Choose Policy: Minimax with alpha beta pruning. Then when certain percentage of total game
+	    		//seeds is reached, use Monte Carlo Search.
+	        	
+	        	int rollout89 = 10;
+	        	int rollout79 = 10;
+	        	int rollout69 = 10;
+	        	int rolloutOther = 2000;
+	    		        
+	  
+
+	        	if(greaterThanPer == 1){				//0.59
+	    	    	score = seedsTotal;	
+
+	        	} else if(greaterThanPer == 2){			//0.69
+	        		//System.out.println("Currently have more than 70% of the seeds so using "+ rollout69 + " rollouts.");
+	    	    	//double monteCarloValue2 = MonteCarloEvaluationV2(current_board, player_id, opponent_id, rollout69);
+	    	    	score = seedsTotal;
+
+	        	} else if(greaterThanPer == 3){			//0.79
+	        		//System.out.println("Currently have more than 80% of the seeds so using "+ rollout79 + " rollouts.");
+	    	    	double monteCarloValue2 = MonteCarloEvaluationV2(current_board, player_id, opponent_id, rollout79);
+	    	    	score = seedsTotal;
+	        	} else if(greaterThanPer == 4){			//0.89
+	        		double monteCarloValue2 = MonteCarloEvaluationV2(current_board, player_id, opponent_id, rolloutOther);
+	        		score = seedsTotal + monteCarloValue2;
+
+	        	} else {						//everything
+	        		//double monteCarloValue2 = MonteCarloEvaluationV2(current_board, player_id, opponent_id, rolloutOther);
+	        		score = seedsTotal;
+	        		//System.out.println("Score = "+score);
+	        	}
+	    		return score;	
+        	
+    		}
     		
-    		//METHOD Choose Policy: Minimax with alpha beta pruning. Then when certain percentage of total game
+    	} else { 				//Option 2: My Opponent, used this for testing if I didnt want my opponennt to have a certain ability. 
+
+
+			int[] heuristicResults = HeuristicEvaluation(current_board, player_id, opponent_id);
+    		int seedsTotal = heuristicResults[0];
+
+			//METHOD Choose Policy: Minimax with alpha beta pruning. Then when certain percentage of total game
     		//seeds is reached, use Monte Carlo Search.
         	
-        	int rollout89 = 10;
-        	int rollout79 = 10;
-        	int rollout69 = 10;
+        	int rollout1 = 5;
+        	int rollout2 = 20;
+        	int rollout3 = 100;
     		        	
-        	if(greaterThanPer == 1){
+        	if(greaterThanPer == 4){
     			//System.out.println("Currently have more than 90% of the seeds so using "+ rollout89 + " rollouts.");
-    	    	double monteCarloValue2 = MonteCarloEvaluationV2(current_board, player_id, opponent_id, rollout89);
-    	    	score = seedsTotal + monteCarloValue2;
-        	} else if(greaterThanPer == 2){
-        		//System.out.println("Currently have more than 80% of the seeds so using "+ rollout79 + " rollouts.");
-    	    	double monteCarloValue2 = MonteCarloEvaluationV2(current_board, player_id, opponent_id, rollout79);
-    	    	score = seedsTotal + monteCarloValue2;
-        	} else if(greaterThanPer == 3){
-        		//System.out.println("Currently have more than 80% of the seeds so using "+ rollout79 + " rollouts.");
-    	    	double monteCarloValue2 = MonteCarloEvaluationV2(current_board, player_id, opponent_id, rollout69);
+    	    	double monteCarloValue2 = MonteCarloEvaluationV2(current_board, player_id, opponent_id, rollout1);
     	    	score = seedsTotal + monteCarloValue2;
         	} else {
         		score = seedsTotal;
         	}
+
+
     		return score;	
+
     	}
     	
     	
@@ -70,8 +134,11 @@ public class MyTools{
     
     public static int[] HeuristicEvaluation(HusBoardState current_board, int player_id, int opponent_id){
     	
+
     	//want to check number of seeds
     	int seedsTotal = 0;
+
+    	int seedsBack = 0;
 
     	//want to check the number of pits that contain 1 pit for opponent
     	int opponents01Pits = 0; 
@@ -89,14 +156,36 @@ public class MyTools{
 				opponents01Pits++;
 			}
 		}
-		
-		int[] scoreResults = new int[2];
+        //find the number of seeds that are in positions of attack, want to limit this. 
+
+		for (int i = 0; i <16; i++){
+			seedsBack = seedsBack + oppPits[i];
+		}
+
+
+		int[] scoreResults = new int[3];
 		scoreResults[0] = seedsTotal;
 		scoreResults[1] = opponents01Pits;
+		scoreResults[2] = seedsBack;
 		
 		
 		return scoreResults;
     	
+    }
+
+
+    public static int EndBoardEvaluation(HusBoardState current_board, int player_id, int opponent_id){
+
+    	//want to be able to run minimax on the end game board to find the exact move to pick. 
+    	//evaluation based solely on whether winnning or not. 
+
+    	if (current_board.getWinner() == player_id){
+    		//System.out.println("End Game Board with Me: "+player_id+", Winning");
+    		return 1;
+    	} else if (current_board.getWinner() == opponent_id){
+    		//System.out.println("End Game Board with Opponent: "+opponent_id+", Winning");
+    		return -1;
+    	} else return 0;
     }
 	
 	

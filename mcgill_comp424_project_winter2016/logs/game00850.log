@@ -1,0 +1,14 @@
+# Server version 0.08 running on cs-2.CS.McGill.CA:8123
+# Game ID: 850
+# Board class: hus.HusBoard
+# Timeout: 2000
+# First Move Timeout: 30000
+# Date: Wed Apr 06 03:14:46 EDT 2016
+# Player 1: Player-0, 'RandomHusPlayer', running on localhost
+# Player 2: Player-1, '260467234', running on localhost
+START Player-0 RandomHusPlayer
+START Player-1 260467234
+PIT 0 0
+PIT 1 0
+PIT 0 22
+PIT 1 1

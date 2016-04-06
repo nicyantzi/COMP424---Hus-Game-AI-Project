@@ -30,7 +30,7 @@ public HusMove chooseMove(HusBoardState board_state){
         
         int turnNumber = board_state.getTurnNumber();
 
-        System.out.println("\nOpponents Turn "+player_id+"Turn Number: "+turnNumber);
+        //System.out.println("\nOpponents Turn "+player_id+"Turn Number: "+turnNumber);
 
         /////////////////////////////////////////////
         
@@ -53,36 +53,38 @@ public HusMove chooseMove(HusBoardState board_state){
         //Various Policies depending on the set of states you are in. 
         //Set of states corresponds to the percentage of seeds you have in the board.
         //Depths for Different MinimaxAB methods based on percentage of seeds. 
-       int depth83 = 5;
-        int depth73 = 5;
-        int depth63 = 9;
+            
+        //MinimaxAB depths
+        int depth83 = 6;
+        int depth73 = 6;
+        int depth63 = 6;
         int depth53 = 6;
         int depthOther = 6;
-    
 
-        if (percentageTotal > 0.53){
-            MyTools.greaterThanPer = 1;
-            System.out.println("Running MinimaxAB "+depth53);
-            bestMoveAB = MinimaxAB(board_state, depth53, alpha, beta);
-        } else if (percentageTotal > 0.63){
-            System.out.println("Running MinimaxAB "+depth63);
-            MyTools.greaterThanPer = 1;
-            bestMoveAB = MinimaxAB(board_state, depth63, alpha, beta);
+        //greaterThanPer is actually an option to run various MCTS methods or not.
+
+        if(percentageTotal > 0.83){
+            MyTools.greaterThanPer = 0;
+            //System.out.println("Running MinimaxAB "+depth83);
+            bestMoveAB = MinimaxAB(board_state, depth83, alpha, beta);
         } else if (percentageTotal > 0.73){
-            System.out.println("Running minimax + mcts "+depth73);
-            MyTools.greaterThanPer = 4;
+            //System.out.println("Running MinimaxAB "+depth73);
+            MyTools.greaterThanPer = 0;
             bestMoveAB = MinimaxAB(board_state, depth73, alpha, beta);
-        }else if(percentageTotal > 0.83){
-            MyTools.greaterThanPer = 4;
-            System.out.println("Running Minimax + mcts "+depth83);
-            bestMoveAB = MinimaxAB(board_state, depth83, alpha, beta);      
+        } else if (percentageTotal > 0.63){
+            //System.out.println("Running MinimaxAB "+depth63);
+            MyTools.greaterThanPer = 0;
+        } else if(percentageTotal > 0.53){
+            MyTools.greaterThanPer = 0;
+            //System.out.println("Running MinimaxAB "+depth53);
+            bestMoveAB = MinimaxAB(board_state, depth53, alpha, beta);
         } else {
             MyTools.greaterThanPer = 0;
-            System.out.println("Running MinimaxAB "+depthOther);
+            //System.out.println("Running MinimaxAB "+depthOther+".");
             bestMoveAB = MinimaxAB(board_state, depthOther, alpha, beta);
         }
-        
-        return bestMoveAB;
+    
+    return bestMoveAB;
         
     }
          

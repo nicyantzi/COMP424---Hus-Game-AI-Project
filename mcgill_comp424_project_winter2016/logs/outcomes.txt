@@ -812,3 +812,43 @@
 878,RandomHusPlayer,260467234,1,260467234,44,game00878.log,
 879,260467234,RandomHusPlayer,0,260467234,54,game00879.log,
 880,RandomHusPlayer,260467234,1,260467234,44,game00880.log,
+881,260467234,RandomHusPlayer,0,260467234,54,game00881.log,
+886,260467234,RandomHusPlayer,1,RandomHusPlayer,1,game00886.log,ILLEGAL MOVE: Player 0 plays pit 0
+897,260467234,RandomHusPlayer,1,RandomHusPlayer,0,game00897.log,TIMEOUT
+898,260467234,RandomHusPlayer,1,RandomHusPlayer,0,game00898.log,TIMEOUT
+899,260467234,RandomHusPlayer,1,RandomHusPlayer,0,game00899.log,TIMEOUT
+902,260467234,RandomHusPlayer,1,RandomHusPlayer,2,game00902.log,ILLEGAL MOVE: Player 0 plays pit 0
+904,260467234,RandomHusPlayer,1,RandomHusPlayer,17,game00904.log,
+905,260467234,RandomHusPlayer,1,RandomHusPlayer,0,game00905.log,TIMEOUT
+906,260467234,RandomHusPlayer,1,RandomHusPlayer,0,game00906.log,TIMEOUT
+907,260467234,RandomHusPlayer,1,RandomHusPlayer,2,game00907.log,ILLEGAL MOVE: Player 0 plays pit 0
+908,260467234,RandomHusPlayer,1,RandomHusPlayer,1,game00908.log,ILLEGAL MOVE: Player 0 plays pit 0
+918,260467234,RandomHusPlayer,1,RandomHusPlayer,11,game00918.log,
+919,260467234,RandomHusPlayer,1,RandomHusPlayer,20,game00919.log,
+920,260467234,RandomHusPlayer,1,RandomHusPlayer,8,game00920.log,
+922,260467234,RandomHusPlayer,1,RandomHusPlayer,117,game00922.log,
+924,260467234,RandomHusPlayer,1,RandomHusPlayer,55,game00924.log,
+929,260467234,RandomHusPlayer,1,RandomHusPlayer,42,game00929.log,
+932,260467234,RandomHusPlayer,1,RandomHusPlayer,30,game00932.log,
+934,260467234,RandomHusPlayer,1,RandomHusPlayer,55,game00934.log,
+936,260467234,RandomHusPlayer,1,RandomHusPlayer,105,game00936.log,
+937,RandomHusPlayer,260467234,0,RandomHusPlayer,105,game00937.log,
+938,260467234,RandomHusPlayer,1,RandomHusPlayer,105,game00938.log,
+939,260467234,RandomHusPlayer,1,RandomHusPlayer,183,game00939.log,
+941,260467234,RandomHusPlayer,0,260467234,370,game00941.log,
+942,260467234,RandomHusPlayer,1,RandomHusPlayer,70,game00942.log,
+943,260467234,RandomHusPlayer,1,RandomHusPlayer,70,game00943.log,
+944,260467234,RandomHusPlayer,1,RandomHusPlayer,70,game00944.log,
+945,260467234,RandomHusPlayer,0,260467234,50,game00945.log,
+946,260467234,RandomHusPlayer,0,260467234,68,game00946.log,
+947,260467234,RandomHusPlayer,0,260467234,57,game00947.log,
+948,260467234,RandomHusPlayer,0,260467234,57,game00948.log,
+949,260467234,RandomHusPlayer,0,260467234,57,game00949.log,
+950,RandomHusPlayer,260467234,1,260467234,39,game00950.log,
+951,260467234,RandomHusPlayer,0,260467234,57,game00951.log,
+952,RandomHusPlayer,260467234,1,260467234,101,game00952.log,
+953,260467234,RandomHusPlayer,0,260467234,57,game00953.log,
+955,260467234,RandomHusPlayer,0,260467234,57,game00955.log,
+956,RandomHusPlayer,260467234,1,260467234,39,game00956.log,
+957,260467234,RandomHusPlayer,0,260467234,105,game00957.log,
+958,RandomHusPlayer,260467234,1,260467234,39,game00958.log,

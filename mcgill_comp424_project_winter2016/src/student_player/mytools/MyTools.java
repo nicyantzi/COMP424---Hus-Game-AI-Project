@@ -64,35 +64,35 @@ public class MyTools{
 
                 int[] heuristicResults = HeuristicEvaluation(current_board, player_id, opponent_id);
                 double seedsTotal = (double) heuristicResults[0];
-                double seedsBack = (double) heuristicResults[2];
-                double seedsBackPer = seedsBack/seedsTotal *100;
+                //double seedsBack = (double) heuristicResults[2];
+                //double seedsBackPer = seedsBack/seedsTotal *100;
                 //System.out.println("Seeds Back Per = "+seedsBackPer);
 
 	        	//METHOD Choose Policy: Minimax with alpha beta pruning. Then when certain percentage of total game
 	    		//seeds is reached, use Monte Carlo Search.
 	        	
-	        	int rollout89 = 10;
-	        	int rollout79 = 10;
-	        	int rollout69 = 10;
-	        	int rolloutOther = 2000;
+	        	// int rollout89 = 10;
+	        	// int rollout79 = 10;
+	        	// int rollout69 = 10;
+	        	// int rolloutOther = 2000;
 	    		        
 	  
 
 	        	if(greaterThanPer == 1){				//0.59
-	    	    	score = seedsTotal;	
+	    	    	score = seedsTotal;	 
 
-	        	} else if(greaterThanPer == 2){			//0.69
-	        		//System.out.println("Currently have more than 70% of the seeds so using "+ rollout69 + " rollouts.");
-	    	    	//double monteCarloValue2 = MonteCarloEvaluationV2(current_board, player_id, opponent_id, rollout69);
-	    	    	score = seedsTotal;
+	        	// } else if(greaterThanPer == 2){			//0.69
+	        	// 	//System.out.println("Currently have more than 70% of the seeds so using "+ rollout69 + " rollouts.");
+	    	    // 	//double monteCarloValue2 = MonteCarloEvaluationV2(current_board, player_id, opponent_id, rollout69);
+	    	    // 	score = seedsTotal;
 
-	        	} else if(greaterThanPer == 3){			//0.79
-	        		//System.out.println("Currently have more than 80% of the seeds so using "+ rollout79 + " rollouts.");
-	    	    	double monteCarloValue2 = MonteCarloEvaluationV2(current_board, player_id, opponent_id, rollout79);
-	    	    	score = seedsTotal;
-	        	} else if(greaterThanPer == 4){			//0.89
-	        		double monteCarloValue2 = MonteCarloEvaluationV2(current_board, player_id, opponent_id, rolloutOther);
-	        		score = seedsTotal + monteCarloValue2;
+	        	// } else if(greaterThanPer == 3){			//0.79
+	        	// 	//System.out.println("Currently have more than 80% of the seeds so using "+ rollout79 + " rollouts.");
+	    	    // 	double monteCarloValue2 = MonteCarloEvaluationV2(current_board, player_id, opponent_id, rollout79);
+	    	    // 	score = seedsTotal;
+	        	// } else if(greaterThanPer == 4){			//0.89
+	        	// 	double monteCarloValue2 = MonteCarloEvaluationV2(current_board, player_id, opponent_id, rolloutOther);
+	        	// 	score = seedsTotal + monteCarloValue2;
 
 	        	} else {						//everything
 	        		//double monteCarloValue2 = MonteCarloEvaluationV2(current_board, player_id, opponent_id, rolloutOther);
@@ -138,10 +138,10 @@ public class MyTools{
     	//want to check number of seeds
     	int seedsTotal = 0;
 
-    	int seedsBack = 0;
+    	// int seedsBack = 0;
 
-    	//want to check the number of pits that contain 1 pit for opponent
-    	int opponents01Pits = 0; 
+    	// //want to check the number of pits that contain 1 pit for opponent
+    	// int opponents01Pits = 0; 
     	
     	//want to check how many seeds are in capture locations total seeds, not pits
     	
@@ -152,21 +152,21 @@ public class MyTools{
 		
 		for(int i = 0; i < 32; i++){
 			seedsTotal = seedsTotal + myPits[i];
-			if (oppPits[i] == 0 || oppPits[i]==1){
-				opponents01Pits++;
-			}
+			// if (oppPits[i] == 0 || oppPits[i]==1){
+			// 	opponents01Pits++;
+			// }
 		}
         //find the number of seeds that are in positions of attack, want to limit this. 
 
-		for (int i = 0; i <16; i++){
-			seedsBack = seedsBack + oppPits[i];
-		}
+		// for (int i = 0; i <16; i++){
+		// 	seedsBack = seedsBack + oppPits[i];
+		// }
 
 
 		int[] scoreResults = new int[3];
 		scoreResults[0] = seedsTotal;
-		scoreResults[1] = opponents01Pits;
-		scoreResults[2] = seedsBack;
+		// scoreResults[1] = opponents01Pits;
+		// scoreResults[2] = seedsBack;
 		
 		
 		return scoreResults;

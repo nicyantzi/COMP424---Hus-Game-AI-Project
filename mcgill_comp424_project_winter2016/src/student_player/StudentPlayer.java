@@ -301,6 +301,7 @@ public class StudentPlayer extends HusPlayer {
         
         //method to use a Quiescence search to determine which nodes to look at deeper.
         ArrayList<Integer> newSearchOrder = QuiescenceSearch(board_state, 4, alpha, beta);
+        Collections.reverse(newSearchOrder);
 
         ArrayList<HusMove> moves = board_state.getLegalMoves();
 
@@ -450,18 +451,6 @@ public class StudentPlayer extends HusPlayer {
     		return beta;
     	}
     }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

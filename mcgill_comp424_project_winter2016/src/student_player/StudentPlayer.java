@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import student_player.mytools.MyTools;
 import student_player.mytree.Node;
 import student_player.mytools.Timer;
+import java.util.Collections;
+
 
 /****************************************
 *										*
@@ -30,6 +32,8 @@ public class StudentPlayer extends HusPlayer {
 
     private Timer husTimer = new Timer();
     private int turnNumber;
+    private int myPlayer;
+    private int oppPlayer;
 
 
     /** This is the primary method that you need to implement.
@@ -38,10 +42,16 @@ public class StudentPlayer extends HusPlayer {
      * for another example agent. */
     public HusMove chooseMove(HusBoardState board_state){
 
+        Runtime runtime = Runtime.getRuntime();
         turnNumber = board_state.getTurnNumber();
+        myPlayer = player_id;
+        oppPlayer = opponent_id;
+
+        System.out.println("My Player = "+myPlayer);
+        System.out.println("Opponenet = "+oppPlayer);
 
         husTimer.setEndTime(turnNumber);
-        husTimer.setFailSafeScore(0.0);
+        husTimer.setTimeoutMoveScore(0.0);
 
         // Get the contents of the pits so we can use it to make decisions.
 //        int[][] pits = board_state.getPits();
@@ -94,7 +104,7 @@ public class StudentPlayer extends HusPlayer {
 
             int depthTurn0 = 8;
             System.out.println("Running Minimax Depth "+depthTurn0);     
-            bestMoveAB = MinimaxAB(board_state, depthTurn0, alpha, beta, 4000000000L); 
+            bestMoveAB = MinimaxAB(board_state, depthTurn0, alpha, beta, 5000000000L); 
 
 
         } else {        //turnNumber greater than 0. 
@@ -106,12 +116,12 @@ public class StudentPlayer extends HusPlayer {
             System.out.println("Percentage Total = "+percentageTotal);
 
             //MinimaxAB depths
-            int depth93 = 11;
-            int depth83 = 10;
-            int depth73 = 9;
-            int depth63 = 8;
-            int depth53 = 7;
-            int depthOther = 6;
+            int depth93 = 12;
+            int depth83 = 11;
+            int depth73 = 10;
+            int depth63 = 9;
+            int depth53 = 8;
+            int depthOther = 7;
 
             //greaterThanPer is actually an option to run various MCTS methods or not.
             if(percentageTotal > 0.93 || percentageTotal < 0.05){
@@ -126,18 +136,18 @@ public class StudentPlayer extends HusPlayer {
                 System.out.println("Running MinimaxAB "+depth73);
                 MyTools.greaterThanPer = 1;
                 bestMoveAB = MinimaxAB(board_state, depth73, alpha, beta, 400000000L);
-            } else if (percentageTotal > 0.69 || percentageTotal < 0.30){
+            } else if (percentageTotal > 0.72 || percentageTotal < 0.30){
                 MyTools.greaterThanPer = 1;
-                System.out.println("Running MinimaxAB "+depth63);
-                bestMoveAB = MinimaxAB(board_state, depth73, alpha, beta, 2700095L);
+                System.out.println("Running MinimaxAB "+depth63);         
+                bestMoveAB = MinimaxAB(board_state, depth73, alpha, beta, 370000095L);
             } else if(percentageTotal > 0.53 || percentageTotal < 0.47){
                 MyTools.greaterThanPer = 1;
                 System.out.println("Running MinimaxAB "+depth53);
-                bestMoveAB = MinimaxAB(board_state, depth53, alpha, beta, 200000000L);
+                bestMoveAB = MinimaxAB(board_state, depth53, alpha, beta, 300000000L);
             } else {
                 MyTools.greaterThanPer = 0;
                 System.out.println("Running MinimaxAB "+depthOther+".");
-                bestMoveAB = MinimaxAB(board_state, depthOther, alpha, beta, 200000000L);
+                bestMoveAB = MinimaxAB(board_state, depthOther, alpha, beta, 300000000L);
             }
         }
         
@@ -154,6 +164,13 @@ public class StudentPlayer extends HusPlayer {
         long timeTook = husTimer.getTimeUsed();
         
         System.out.println("Time used this turn in nanoseconds "+timeTook);
+
+
+        long freeMemory = runtime.freeMemory();
+
+        System.out.println("Space left = "+ freeMemory/1024);
+
+
        
         return bestMoveAB;
         
@@ -279,43 +296,99 @@ public class StudentPlayer extends HusPlayer {
     
     public HusMove MinimaxAB(HusBoardState board_state, int depth, double alpha, double beta, long buffer){
     
-    	
-    	ArrayList<HusMove> moves = board_state.getLegalMoves();
+        //method to resort the nodes on a level such that their evaluation function results sort them in an increasing index. 
+        //ArrayList<Integer> newSearchOrder = MyTools.NewSearchOrder(board_state, myPlayer, oppPlayer);
+        
+        //method to use a Quiescence search to determine which nodes to look at deeper.
+        ArrayList<Integer> newSearchOrder = QuiescenceSearch(board_state, 4, alpha, beta);
+
+        ArrayList<HusMove> moves = board_state.getLegalMoves();
+
     	double maxScore = 0;
     	HusMove maxMove = moves.get(0);
-        husTimer.setFailSafe(maxMove);
+        husTimer.setTimeoutMove(maxMove);
 
-    	for(int i = 0; i< moves.size(); i++){
+    	for(int i = 0; i< newSearchOrder.size(); i++){
         //for(int i = moves.size()-1; i > 0; i=i-1){
             long timeLeft = husTimer.getTimeLeft();
             //System.out.println("Time Left : "+timeLeft);
             if(timeLeft > buffer){
 
-                //System.out.println("Greater than buffer, looking at root child: "+i);
+                long bufferStart = System.nanoTime();
+
+                System.out.println("Greater than buffer, looking at root child: "+i);
 
                 HusBoardState cloned_board_state = (HusBoardState) board_state.clone();
-                cloned_board_state.move(moves.get(i));
+                cloned_board_state.move(moves.get(newSearchOrder.get(i)));
                 
                 double score = MinValue(cloned_board_state, depth-1, alpha, beta);
                 
                 if (score > maxScore){
                     maxScore = score;
-                    maxMove = moves.get(i);
+                    maxMove = moves.get(newSearchOrder.get(i));
                 }
 
-                if (maxScore > (husTimer.getFailSafeScore())){
-                    husTimer.setFailSafe(maxMove);
-                    husTimer.setFailSafeScore(maxScore);
+                if (maxScore > (husTimer.getTimeoutMoveScore())){
+                    husTimer.setTimeoutMove(maxMove);
+                    husTimer.setTimeoutMoveScore(maxScore);
                 }
+
+                buffer = System.nanoTime() - bufferStart;
+
             } else {
                 System.out.println("Running out of time... Returning the best move so far");
-                return husTimer.getFailSafe();
+                return husTimer.getTimeoutMove();
             }
     	}
 		System.out.println("Whole Tree Built. The best move: "+maxMove.getPit());
 
     	return maxMove;
     }
+
+    //method to look for quiet or noisy regions in the upper portion of the game tree
+    public ArrayList<Integer> QuiescenceSearch(HusBoardState board_state, int depth, double alpha, double beta){
+    
+        ArrayList<HusMove> moves = board_state.getLegalMoves();
+
+        ArrayList<Node> quiescenceResults = new ArrayList<Node>();
+
+        for(int i = 0; i< moves.size(); i++){
+            
+            //System.out.println("Greater than buffer, looking at root child: "+i);
+
+            HusBoardState cloned_board_state = (HusBoardState) board_state.clone();
+            cloned_board_state.move(moves.get(i));
+            
+            int score = (int) MinValue(cloned_board_state, depth-1, alpha, beta);
+
+            Node childResult = new Node(score, i);
+
+            quiescenceResults.add(childResult);
+            
+        }
+
+        Collections.sort(quiescenceResults);
+
+        ArrayList<Integer> scoresList = new ArrayList<Integer>();
+        for(int i = 0; i < quiescenceResults.size(); i++){
+            scoresList.add(quiescenceResults.get(i).getScore());
+        }
+        System.out.println("Quiescence Results: "+scoresList);
+
+        int selectionAmount = Math.min(8, quiescenceResults.size());
+
+        ArrayList<Integer> newSearchNodes = new ArrayList<Integer>();
+
+        for (int i = 0; i < selectionAmount; i++){
+            int index = quiescenceResults.size()-1-i;
+            newSearchNodes.add(quiescenceResults.get(index).getIndex());
+        }
+
+        System.out.println("After Selection : "+ newSearchNodes);
+        
+        return newSearchNodes;
+    }
+
 
     public double MaxValue(HusBoardState board_state, int depth, double alpha, double beta){
 
@@ -326,6 +399,9 @@ public class StudentPlayer extends HusPlayer {
     	} else {
     		
     		ArrayList<HusMove> moves = board_state.getLegalMoves();
+      //       ArrayList<Integer> newSearchOrder = MyTools.NewSearchOrder(board_state, myPlayer, oppPlayer);
+            //System.out.println("New Search Order: "+newSearchOrder);
+
     		
     		for(int i=0; i< moves.size(); i++){
             //for(int i = moves.size()-1; i > 0; i=i-1){
@@ -353,6 +429,11 @@ public class StudentPlayer extends HusPlayer {
     	} else {
     		
     		ArrayList<HusMove> moves = board_state.getLegalMoves();
+            //this has returned an asscending list. we want to reverse its direction
+            // ArrayList<Integer> newSearchOrder = MyTools.NewSearchOrder(board_state, myPlayer, oppPlayer);
+            // Collections.reverse(newSearchOrder);
+            //System.out.println("New Search Order: "+newSearchOrder);
+
     		
     		for(int i=0; i < moves.size(); i++){
             //for(int i = moves.size()-1; i > 0; i=i-1){    
@@ -369,5 +450,23 @@ public class StudentPlayer extends HusPlayer {
     		return beta;
     	}
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     //end of StudentPlayer
 }

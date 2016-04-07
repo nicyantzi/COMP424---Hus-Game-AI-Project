@@ -55,11 +55,11 @@ public HusMove chooseMove(HusBoardState board_state){
         //Depths for Different MinimaxAB methods based on percentage of seeds. 
             
         //MinimaxAB depths
-        int depth83 = 6;
-        int depth73 = 6;
-        int depth63 = 6;
-        int depth53 = 6;
-        int depthOther = 6;
+        int depth83 = 7;
+        int depth73 = 7;
+        int depth63 = 7;
+        int depth53 = 7;
+        int depthOther = 7;
 
         //greaterThanPer is actually an option to run various MCTS methods or not.
 

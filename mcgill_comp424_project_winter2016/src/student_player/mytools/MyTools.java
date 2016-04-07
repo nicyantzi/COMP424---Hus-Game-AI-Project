@@ -3,6 +3,12 @@ package student_player.mytools;
 
 import hus.HusBoardState;
 import java.util.Random;
+import java.util.Collections;
+import student_player.mytree.Node;
+import java.util.ArrayList;
+import hus.HusMove;
+import hus.HusBoardState;
+import hus.HusPlayer;
 
 
 /****************************************
@@ -214,4 +220,67 @@ public class MyTools{
 		return percentageWins;
 		
 	}
+
+
+    public static ArrayList<Integer> NewSearchOrder(HusBoardState current_board, int myPlayer, int oppPlayer){
+
+        //arrayList containing the scores and orginal index of each possible child of the root. 
+        //going to sort these scores in increasing order. this will hopefully increase the number of branches that
+        //we can prune using our alpha beta pruning. 
+
+
+        ArrayList<Node> firstRowSort = new ArrayList<Node>();
+
+        //new order of first row nodes (game boards) we will search....
+
+        ArrayList<HusMove> moves = current_board.getLegalMoves();
+
+        ArrayList<Integer> newSearchOrder = new ArrayList<Integer>();
+
+
+        for(int i = 0; i < moves.size(); i++){
+
+            HusBoardState cloned_board_state = (HusBoardState) current_board.clone();
+            cloned_board_state.move(moves.get(i));
+            int score = (int) MyTools.EvaluationFunction(cloned_board_state, myPlayer, oppPlayer, 0);
+
+            //create new node that contains the index and the score associated with that index
+            //will create a new arraylist of indexes to better sort the children. 
+            Node newNode = new Node(score, i);
+            firstRowSort.add(newNode);
+
+        }
+
+        Collections.sort(firstRowSort);
+
+        for(int i = 0; i < firstRowSort.size(); i++){
+            newSearchOrder.add(firstRowSort.get(i).getIndex());
+        }
+
+
+        return newSearchOrder;
+
+
+    }
+
+
+
+    /*
+
+
+        perform a quiesence search on the tree.
+
+            essentially want to do a alpha beta pruning search depth 3 and find the top 1/4 scores
+            //then do a further depth search on these certain nodes with higher scores. 
+
+            
+
+
+
+
+
+
+    */
+
+
 }

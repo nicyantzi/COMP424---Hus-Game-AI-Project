@@ -6,13 +6,13 @@ public class Timer {
 	
 	
 	private long endTime;
-	private HusMove failSafeMove;
-	private double failSafeMoveScore;
+	private HusMove timeoutMove;
+	private double timeoutMoveScore;
 	private long startTime;
 
 
 	public Timer(){
-		failSafeMoveScore = 0.0;
+		timeoutMoveScore = 0.0;
 	}
 
 
@@ -53,20 +53,20 @@ public class Timer {
 
 	//Fail Safe Move, Get and Set Methods
 
-	public void setFailSafe(HusMove newMove){
-		this.failSafeMove = newMove;
+	public void setTimeoutMove(HusMove newMove){
+		this.timeoutMove = newMove;
 	}
 
-	public void setFailSafeScore(double newScore){
-		this.failSafeMoveScore = newScore;
+	public void setTimeoutMoveScore(double newScore){
+		this.timeoutMoveScore = newScore;
 	}
 
-	public HusMove getFailSafe(){
-		return failSafeMove;
+	public HusMove getTimeoutMove(){
+		return timeoutMove;
 	}
 
-	public double getFailSafeScore(){
-		return failSafeMoveScore;
+	public double getTimeoutMoveScore(){
+		return timeoutMoveScore;
 	}
 
 }

@@ -55,9 +55,9 @@ public HusMove chooseMove(HusBoardState board_state){
         //Depths for Different MinimaxAB methods based on percentage of seeds. 
             
         //MinimaxAB depths
-        int depth83 = 7;
-        int depth73 = 7;
-        int depth63 = 7;
+        int depth83 = 8;
+        int depth73 = 8;
+        int depth63 = 8;
         int depth53 = 7;
         int depthOther = 7;
 

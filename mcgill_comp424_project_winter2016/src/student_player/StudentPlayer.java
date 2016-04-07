@@ -47,8 +47,8 @@ public class StudentPlayer extends HusPlayer {
         myPlayer = player_id;
         oppPlayer = opponent_id;
 
-        System.out.println("My Player = "+myPlayer);
-        System.out.println("Opponenet = "+oppPlayer);
+        //System.out.println("\nMy Player = "+myPlayer);
+        //System.out.println("Opponenet = "+oppPlayer);
 
         husTimer.setEndTime(turnNumber);
         husTimer.setTimeoutMoveScore(0.0);
@@ -103,8 +103,8 @@ public class StudentPlayer extends HusPlayer {
         if(turnNumber == 0){
 
             int depthTurn0 = 8;
-            System.out.println("Running Minimax Depth "+depthTurn0);     
-            bestMoveAB = MinimaxAB(board_state, depthTurn0, alpha, beta, 5000000000L, 4); 
+            //System.out.println("Running Minimax Depth "+depthTurn0);     
+            bestMoveAB = MinimaxAB(board_state, depthTurn0, alpha, beta, 5000000000L, 5); 
 
 
         } else {        //turnNumber greater than 0. 
@@ -113,41 +113,46 @@ public class StudentPlayer extends HusPlayer {
             double totalPossibleSeeds = 96;
         
             double percentageTotal = totalSeedsCurrent/totalPossibleSeeds;
-            System.out.println("Percentage Total = "+percentageTotal);
+            //System.out.println("Percentage Total = "+percentageTotal*100);
 
             //MinimaxAB depths
-            int depth93 = 11;
-            int depth83 = 10;
-            int depth73 = 9;
-            int depth63 = 8;
-            int depth53 = 7;
-            int depthOther = 7;
+            int depthL6 = 11;       //10
+            int depthL5 = 10;       //9     working values.
+            int depthL4 = 9;        //8
+            int depthL3 = 8;
+            int depthL2 = 8;
+            int depthL1 = 7;
+            int depthMain = 6;
 
             //greaterThanPer is actually an option to run various MCTS methods or not.
             if(percentageTotal > 0.93 || percentageTotal < 0.05){
-                MyTools.greaterThanPer = 1;
-                System.out.println("Running MinimaxAB "+depth93);
-                bestMoveAB = MinimaxAB(board_state, depth93, alpha, beta, 400000000L, 3);
+                MyTools.greaterThanPer = 0;
+                //System.out.println("Running MinimaxAB "+depthL6);
+                bestMoveAB = MinimaxAB(board_state, depthL6, alpha, beta, 400000000L, 5);
             } else if(percentageTotal > 0.87 || percentageTotal < 0.10){
-                MyTools.greaterThanPer = 1;
-                System.out.println("Running MinimaxAB "+depth83);
-                bestMoveAB = MinimaxAB(board_state, depth83, alpha, beta, 400000000L, 3);
+                MyTools.greaterThanPer = 0;
+                //System.out.println("Running MinimaxAB "+depthL5);
+                bestMoveAB = MinimaxAB(board_state, depthL5, alpha, beta, 400000000L, 5);
             } else if (percentageTotal > 0.77 || percentageTotal < 0.20){
-                System.out.println("Running MinimaxAB "+depth73);
-                MyTools.greaterThanPer = 1;
-                bestMoveAB = MinimaxAB(board_state, depth73, alpha, beta, 400000000L, 3);
-            } else if (percentageTotal > 0.72 || percentageTotal < 0.30){
-                MyTools.greaterThanPer = 1;
-                System.out.println("Running MinimaxAB "+depth63);         
-                bestMoveAB = MinimaxAB(board_state, depth73, alpha, beta, 370000095L, 3);
-            } else if(percentageTotal > 0.53 || percentageTotal < 0.47){
-                MyTools.greaterThanPer = 1;
-                System.out.println("Running MinimaxAB "+depth53);
-                bestMoveAB = MinimaxAB(board_state, depth53, alpha, beta, 300000000L, 3);
+                //System.out.println("Running MinimaxAB "+depthL4);
+                MyTools.greaterThanPer = 0;
+                bestMoveAB = MinimaxAB(board_state, depthL4, alpha, beta, 400000000L, 5);
+            } else if (percentageTotal > 0.70 || percentageTotal < 0.30){
+                MyTools.greaterThanPer = 0;
+                //System.out.println("Running MinimaxAB "+depthL3);         
+                bestMoveAB = MinimaxAB(board_state, depthL3, alpha, beta, 370000095L, 5);
+            } else if(percentageTotal > 0.54 || percentageTotal < 0.40){
+                MyTools.greaterThanPer = 0;
+                //System.out.println("Running MinimaxAB "+depthL2);
+                bestMoveAB = MinimaxAB(board_state, depthL2, alpha, beta, 300000000L, 5);
+            } else if(percentageTotal >0.515 || percentageTotal <0.45){
+                MyTools.greaterThanPer = 0;
+                //System.out.println("Running MinimaxAB "+depthL2);
+                bestMoveAB = MinimaxAB(board_state, depthL1, alpha, beta, 300000000L, 5);
             } else {
                 MyTools.greaterThanPer = 0;
-                System.out.println("Running MinimaxAB "+depthOther+".");
-                bestMoveAB = MinimaxAB(board_state, depthOther, alpha, beta, 300000000L, 3);
+                //System.out.println("Running MinimaxAB "+depthMain+".");
+                bestMoveAB = MinimaxAB(board_state, depthMain, alpha, beta, 300000000L, 5);
             }
         }
         
@@ -163,12 +168,12 @@ public class StudentPlayer extends HusPlayer {
         
         long timeTook = husTimer.getTimeUsed();
         
-        System.out.println("Time used this turn in nanoseconds "+timeTook);
+        //System.out.println("Time used this turn in nanoseconds "+timeTook);
 
 
-        long freeMemory = runtime.freeMemory();
+        //long freeMemory = runtime.freeMemory();
 
-        System.out.println("Space left = "+ freeMemory/1024);
+        //System.out.println("Space left = "+ freeMemory/1024);
 
 
        
@@ -317,7 +322,7 @@ public class StudentPlayer extends HusPlayer {
 
                 long bufferStart = System.nanoTime();
 
-                System.out.println("Greater than buffer, looking at root child: "+i);
+                //System.out.println("Greater than buffer, looking at root child: "+i);
 
                 HusBoardState cloned_board_state = (HusBoardState) board_state.clone();
                 cloned_board_state.move(moves.get(newSearchOrder.get(i)));
@@ -334,14 +339,14 @@ public class StudentPlayer extends HusPlayer {
                     husTimer.setTimeoutMoveScore(maxScore);
                 }
 
-                buffer = Math.max(System.nanoTime() - bufferStart + (long) 0.50*bufferStart, 500000L);
+                buffer = Math.max(System.nanoTime() - bufferStart + ((long) 0.15*(System.nanoTime() - bufferStart)), 40000000L);
 
             } else {
-                System.out.println("Running out of time... Returning the best move so far");
+                //System.out.println("Running out of time... Returning the best move so far");
                 return husTimer.getTimeoutMove();
             }
     	}
-		System.out.println("Whole Tree Built. The best move: "+maxMove.getPit());
+		//System.out.println("Whole Tree Built. The best move: "+maxMove.getPit());
 
     	return maxMove;
     }
@@ -374,7 +379,7 @@ public class StudentPlayer extends HusPlayer {
         for(int i = 0; i < quiescenceResults.size(); i++){
             scoresList.add(quiescenceResults.get(i).getScore());
         }
-        System.out.println("Quiescence Results: "+scoresList);
+        //System.out.println("Quiescence Results: "+scoresList);
 
         int selectionAmount = Math.min(8, quiescenceResults.size());
 
@@ -385,7 +390,7 @@ public class StudentPlayer extends HusPlayer {
             newSearchNodes.add(quiescenceResults.get(index).getIndex());
         }
 
-        System.out.println("After Selection : "+ newSearchNodes);
+        //System.out.println("After Selection : "+ newSearchNodes);
         
         return newSearchNodes;
     }

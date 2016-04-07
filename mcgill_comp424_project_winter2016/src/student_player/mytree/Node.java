@@ -5,7 +5,16 @@ import hus.HusMove;
 import java.util.Comparator;
 
 //Nic Yantzi
-//Object that I will use when performing Minimax algorithm to store the score and move associated with that score. 
+//Object that I will use when performing Minimax algorithm to store the score and move associated with that score.
+
+/****************************************
+*										*
+*	Nic Yantzi - 260467234				*
+*	Hus Project 						*
+*	COMP424 - Artificial Intelligence	*
+*										*							
+/***************************************/
+
 
 public class Node implements Comparable<Node> {
 	private int score;

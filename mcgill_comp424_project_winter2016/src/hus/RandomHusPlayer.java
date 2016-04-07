@@ -55,33 +55,34 @@ public HusMove chooseMove(HusBoardState board_state){
         //Depths for Different MinimaxAB methods based on percentage of seeds. 
             
         //MinimaxAB depths
-        int depth83 = 8;
-        int depth73 = 8;
-        int depth63 = 8;
-        int depth53 = 7;
-        int depthOther = 7;
+        int depthL5 = 8;
+        int depthL4 = 8;
+        int depthL3 = 8;
+        int depthL2 = 7;
+        int depthMain = 6;
 
         //greaterThanPer is actually an option to run various MCTS methods or not.
 
-        if(percentageTotal > 0.83){
+        if(percentageTotal > 0.87 || percentageTotal < 0.10){
             MyTools.greaterThanPer = 0;
-            //System.out.println("Running MinimaxAB "+depth83);
-            bestMoveAB = MinimaxAB(board_state, depth83, alpha, beta);
-        } else if (percentageTotal > 0.73){
-            //System.out.println("Running MinimaxAB "+depth73);
+            //System.out.println("Running MinimaxAB "+depthL5);
+            bestMoveAB = MinimaxAB(board_state, depthL5, alpha, beta);
+        } else if (percentageTotal > 0.77 || percentageTotal < 0.20){
+            //System.out.println("Running MinimaxAB "+depthL4);
             MyTools.greaterThanPer = 0;
-            bestMoveAB = MinimaxAB(board_state, depth73, alpha, beta);
-        } else if (percentageTotal > 0.63){
-            //System.out.println("Running MinimaxAB "+depth63);
+            bestMoveAB = MinimaxAB(board_state, depthL4, alpha, beta);
+        } else if (percentageTotal > 0.70 || percentageTotal < 0.30){
+            //System.out.println("Running MinimaxAB "+depthL3);
             MyTools.greaterThanPer = 0;
-        } else if(percentageTotal > 0.53){
+            bestMoveAB = MinimaxAB(board_state, depthL3, alpha, beta);
+        } else if(percentageTotal > 0.54 || percentageTotal < 0.46){
             MyTools.greaterThanPer = 0;
-            //System.out.println("Running MinimaxAB "+depth53);
-            bestMoveAB = MinimaxAB(board_state, depth53, alpha, beta);
+            //System.out.println("Running MinimaxAB "+depthL2);
+            bestMoveAB = MinimaxAB(board_state, depthL2, alpha, beta);
         } else {
             MyTools.greaterThanPer = 0;
-            //System.out.println("Running MinimaxAB "+depthOther+".");
-            bestMoveAB = MinimaxAB(board_state, depthOther, alpha, beta);
+            //System.out.println("Running MinimaxAB "+depthMain+".");
+            bestMoveAB = MinimaxAB(board_state, depthMain, alpha, beta);
         }
     
     return bestMoveAB;

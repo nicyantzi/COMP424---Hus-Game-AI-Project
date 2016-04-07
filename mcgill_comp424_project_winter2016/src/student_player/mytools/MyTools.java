@@ -264,23 +264,4 @@ public class MyTools{
     }
 
 
-
-    /*
-
-
-        perform a quiesence search on the tree.
-
-            essentially want to do a alpha beta pruning search depth 3 and find the top 1/4 scores
-            //then do a further depth search on these certain nodes with higher scores. 
-
-            
-
-
-
-
-
-
-    */
-
-
 }

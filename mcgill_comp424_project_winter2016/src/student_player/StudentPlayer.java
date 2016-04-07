@@ -73,7 +73,6 @@ public class StudentPlayer extends HusPlayer {
         /////////////////////////////////////////////
         
         //V1 - Minimax 1 level deep.
-        
         //move = MinimaxDecision(moves, board_state);
         
         /////////////////////////////////////////////

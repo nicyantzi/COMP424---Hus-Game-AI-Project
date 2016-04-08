@@ -167,7 +167,7 @@ public class StudentPlayer extends HusPlayer {
         
         long timeTook = husTimer.getTimeUsed();
         
-        //System.out.println("Time used this turn in nanoseconds "+timeTook);
+        System.out.println("Time used this turn in nanoseconds "+timeTook);
 
 
         //long freeMemory = runtime.freeMemory();

@@ -112,7 +112,7 @@ public class StudentPlayer extends HusPlayer {
             double totalPossibleSeeds = 96;
         
             double percentageTotal = totalSeedsCurrent/totalPossibleSeeds;
-            //System.out.println("Percentage Total = "+percentageTotal*100);
+            System.out.println("Percentage Total = "+percentageTotal*100);
 
             //MinimaxAB depths
             int depthL6 = 11;       //10
@@ -127,31 +127,31 @@ public class StudentPlayer extends HusPlayer {
             if(percentageTotal > 0.93 || percentageTotal < 0.05){
                 MyTools.greaterThanPer = 0;
                 //System.out.println("Running MinimaxAB "+depthL6);
-                bestMoveAB = MinimaxAB(board_state, depthL6, alpha, beta, 400000000L, 5);
+                bestMoveAB = MinimaxAB(board_state, depthL6, alpha, beta, 900000000L, 5);
             } else if(percentageTotal > 0.87 || percentageTotal < 0.10){
                 MyTools.greaterThanPer = 0;
                 //System.out.println("Running MinimaxAB "+depthL5);
-                bestMoveAB = MinimaxAB(board_state, depthL5, alpha, beta, 400000000L, 5);
+                bestMoveAB = MinimaxAB(board_state, depthL5, alpha, beta, 900000000L, 5);
             } else if (percentageTotal > 0.77 || percentageTotal < 0.20){
                 //System.out.println("Running MinimaxAB "+depthL4);
                 MyTools.greaterThanPer = 0;
-                bestMoveAB = MinimaxAB(board_state, depthL4, alpha, beta, 400000000L, 5);
+                bestMoveAB = MinimaxAB(board_state, depthL4, alpha, beta, 900000000L, 5);
             } else if (percentageTotal > 0.70 || percentageTotal < 0.30){
                 MyTools.greaterThanPer = 0;
                 //System.out.println("Running MinimaxAB "+depthL3);         
-                bestMoveAB = MinimaxAB(board_state, depthL3, alpha, beta, 370000095L, 5);
+                bestMoveAB = MinimaxAB(board_state, depthL3, alpha, beta, 900000000L, 5);
             } else if(percentageTotal > 0.54 || percentageTotal < 0.40){
                 MyTools.greaterThanPer = 0;
                 //System.out.println("Running MinimaxAB "+depthL2);
-                bestMoveAB = MinimaxAB(board_state, depthL2, alpha, beta, 300000000L, 5);
+                bestMoveAB = MinimaxAB(board_state, depthL2, alpha, beta, 900000000L, 5);
             } else if(percentageTotal >0.515 || percentageTotal <0.45){
                 MyTools.greaterThanPer = 0;
                 //System.out.println("Running MinimaxAB "+depthL2);
-                bestMoveAB = MinimaxAB(board_state, depthL1, alpha, beta, 300000000L, 5);
+                bestMoveAB = MinimaxAB(board_state, depthL1, alpha, beta, 900000000L, 5);
             } else {
                 MyTools.greaterThanPer = 0;
                 //System.out.println("Running MinimaxAB "+depthMain+".");
-                bestMoveAB = MinimaxAB(board_state, depthMain, alpha, beta, 300000000L, 5);
+                bestMoveAB = MinimaxAB(board_state, depthMain, alpha, beta, 900000000L, 5);
             }
         }
         
@@ -305,12 +305,13 @@ public class StudentPlayer extends HusPlayer {
         
         //method to use a Quiescence search to determine which nodes to look at deeper.
         ArrayList<Integer> newSearchOrder = QuiescenceSearch(board_state, quiescenceDepth, alpha, beta);
+       
         //Collections.reverse(newSearchOrder);
 
         ArrayList<HusMove> moves = board_state.getLegalMoves();
 
     	double maxScore = 0;
-    	HusMove maxMove = moves.get(0);
+    	HusMove maxMove = moves.get(newSearchOrder.get(0));
         husTimer.setTimeoutMove(maxMove);
 
     	for(int i = 0; i< newSearchOrder.size(); i++){

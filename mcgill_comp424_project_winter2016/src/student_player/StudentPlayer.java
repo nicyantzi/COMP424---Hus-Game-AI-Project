@@ -140,11 +140,11 @@ public class StudentPlayer extends HusPlayer {
                 MyTools.greaterThanPer = 0;
                 //System.out.println("Running MinimaxAB "+depthL3);         
                 bestMoveAB = MinimaxAB(board_state, depthL3, alpha, beta, 900000000L, 5);
-            } else if(percentageTotal > 0.54 || percentageTotal < 0.40){
+            } else if(percentageTotal > 0.56 || percentageTotal < 0.40){
                 MyTools.greaterThanPer = 0;
                 //System.out.println("Running MinimaxAB "+depthL2);
                 bestMoveAB = MinimaxAB(board_state, depthL2, alpha, beta, 900000000L, 5);
-            } else if(percentageTotal >0.515 || percentageTotal <0.45){
+            } else if(percentageTotal >0.53 || percentageTotal <0.45){
                 MyTools.greaterThanPer = 0;
                 //System.out.println("Running MinimaxAB "+depthL2);
                 bestMoveAB = MinimaxAB(board_state, depthL1, alpha, beta, 900000000L, 5);
@@ -339,7 +339,7 @@ public class StudentPlayer extends HusPlayer {
                     husTimer.setTimeoutMoveScore(maxScore);
                 }
 
-                buffer = Math.max(System.nanoTime() - bufferStart + ((long) 0.15*(System.nanoTime() - bufferStart)), 40000000L);
+                buffer = Math.max(System.nanoTime() - bufferStart + ((long) 0.3*(System.nanoTime() - bufferStart)), 40000000L);
 
             } else {
                 //System.out.println("Running out of time... Returning the best move so far");
